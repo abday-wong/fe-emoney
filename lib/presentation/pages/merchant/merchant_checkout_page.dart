@@ -35,7 +35,6 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
   @override
   void initState() {
     super.initState();
-    // Refresh user balance and auth status on checkout page entry
     context.read<AccountBloc>().add(AccountLoadRequested());
     context.read<AuthBloc>().add(AuthCheckRequested());
   }
