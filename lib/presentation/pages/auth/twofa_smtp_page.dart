@@ -75,7 +75,7 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg,
         body: SafeArea(
           child: Column(
             children: [

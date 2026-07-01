@@ -82,7 +82,7 @@ class _AppFieldState extends State<AppField> {
           duration: const Duration(milliseconds: 150),
           height: 54,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _focused ? AppColors.primary : AppColors.line,

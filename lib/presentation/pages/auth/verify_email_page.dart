@@ -109,7 +109,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     final email = FirebaseAuth.instance.currentUser?.email ?? 'email kamu';
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bg,
       body: SafeArea(
         child: Column(
           children: [

@@ -64,7 +64,7 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bg,
       body: SafeArea(
         child: Column(
           children: [
@@ -125,7 +125,7 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
                       margin: const EdgeInsets.only(bottom: 13),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: on ? AppColors.primarySurface : Colors.white,
+                        color: on ? AppColors.primarySurface : AppColors.white,
                         borderRadius: BorderRadius.circular(18),
                         border: Border.all(
                           color: on ? AppColors.primaryLight : AppColors.line,
@@ -179,7 +179,7 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
                             height: 22,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: on ? AppColors.primary : Colors.white,
+                              color: on ? AppColors.primary : AppColors.white,
                               border: Border.all(
                                 color: on ? AppColors.primary : AppColors.line,
                                 width: 2,

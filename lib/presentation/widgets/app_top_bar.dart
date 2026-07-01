@@ -14,7 +14,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bg,
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: onBack != null

@@ -38,7 +38,7 @@ class _TwoFANotifPageState extends State<TwoFANotifPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg,
         body: SafeArea(
           child: Column(
             children: [

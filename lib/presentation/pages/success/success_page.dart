@@ -37,7 +37,7 @@ class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bg,
       body: SafeArea(
         child: Column(
           children: [
@@ -83,7 +83,7 @@ class _SuccessPageState extends State<SuccessPage> {
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColors.bg,
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(18),
                         ),
                         child: Column(

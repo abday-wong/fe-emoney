@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg,
         body: SafeArea(
           child: Column(
             children: [
@@ -156,9 +156,9 @@ class _LoginPageState extends State<LoginPage> {
                             child: Container(
                               height: 54,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.85),
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: Colors.white.withOpacity(0.3), width: 1.5),
+                                border: Border.all(color: AppColors.line, width: 1.5),
                                 boxShadow: AppColors.shadowSoft,
                               ),
                               child: Row(

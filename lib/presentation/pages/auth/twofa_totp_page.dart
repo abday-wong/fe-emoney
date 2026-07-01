@@ -75,7 +75,7 @@ class _TwoFATotpPageState extends State<TwoFATotpPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg,
         body: SafeArea(
           child: Column(
             children: [
