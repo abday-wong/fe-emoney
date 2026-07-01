@@ -500,7 +500,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                         color: Colors.white,
                         border: Border(top: BorderSide(color: AppColors.line2)),
                       ),
-                      padding: EdgeInsets.fromLTRB(16, 12, 24, MediaQuery.of(context).padding.bottom + 16),
+                      padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -511,7 +511,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                       _processPaymentCancelRedirect(trx.trxId, trx.callback, 'Payment declined by user.');
                                     },
                               style: OutlinedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(vertical: 12),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                 side: const BorderSide(color: AppColors.line),
                               ),
@@ -522,6 +522,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                           Expanded(
                             child: AppButton(
                               label: 'Konfirmasi Bayar',
+                              size: AppButtonSize.md,
                               isLoading: _isProcessing,
                               onPressed: (isBalanceSufficient && _otpController.text.length == 6 && !_isProcessing)
                                   ? () {
