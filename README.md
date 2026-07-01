@@ -1,137 +1,117 @@
-# fe-emoney 💚
+# Doran Pay - Aplikasi E-Wallet & Payment Gateway
 
-Frontend aplikasi **E-Money** dengan desain **Neo-Brutalism** berbasis **Flutter/Dart**.
+Proyek ini adalah bagian dari tugas **Ujian Akhir Semester (UAS) Genap 2025/2026** untuk mata kuliah **Aplikasi Mobile Lanjutan**.
 
-## 🎨 Desain
+### 👤 Identitas Mahasiswa
+* **Nama**: [Tulis Nama Anda Di Sini]
+* **NIM**: [Tulis NIM Anda Di Sini]
+* **Kelas**: [Tulis Kelas Anda Di Sini]
+* **Matakuliah**: Aplikasi Mobile Lanjutan (KB1154)
+* **Program Studi**: Teknik Informatika
+* **Dosen Pengampu**: IKetut Gunawan, S.KOM, M.T.I
+* **Institut**: Institut Teknologi & Bisnis Bina Sarana Global
 
-- **Tema**: Neo-Brutalism — Krem/Off-white & Hitam dengan aksen Hijau
-- **Warna utama**: `#FAF7F0` (krem) · `#2D6A4F` (hijau) · `#1A1A1A` (hitam)
-- **Font**: [Syne](https://fonts.google.com/specimen/Syne) (heading) + [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) (body)
-- **Style**: Border tebal 2px, box-shadow kotak, tombol animasi press
+---
 
-## 📱 Platform yang Didukung
+## 1. 📱 Deskripsi Aplikasi
+**Doran Pay** adalah aplikasi dompet digital (E-Wallet) dan payment gateway mandiri yang dibangun menggunakan Flutter. Aplikasi ini berfungsi sebagai penyedia layanan pembayaran digital (wallet) yang diintegrasikan langsung secara *App-to-App* dengan aplikasi e-commerce **Doran Gaming Console** melalui mekanisme **Deep Link**.
 
-- ✅ Android (emulator & device fisik)
-- ✅ Windows Desktop
-- ✅ Web Browser
+### Fitur Utama:
+* **Manajemen Saldo**: Menampilkan informasi saldo akun pengguna secara real-time.
+* **Otentikasi & Registrasi**: Pendaftaran akun baru dengan verifikasi keamanan awal.
+* **Integrasi Pembayaran (Deep Link)**: Menerima permintaan checkout belanja dari aplikasi E-Commerce, memproses pembayaran, memotong saldo, dan mengembalikan status transaksi sukses/gagal ke aplikasi E-Commerce.
+* **Two-Factor Authentication (2FA)**: Pengamanan transaksi digital menggunakan verifikasi 2 langkah (Email OTP, Google Authenticator TOTP, dan Push Notification).
+* **Riwayat Transaksi**: Mencatat semua detail pengeluaran (debit) dan pemasukan saldo (credit).
+* **Desain Estetika Premium (Persona 5 Royal)**: Antarmuka bertema gelap (*dark theme*) dengan kombinasi warna hitam pekat, abu-abu gelap, dan merah menyala, dilengkapi dengan aksen visual yang memanjakan mata.
 
-## 🗂️ Struktur Project
+---
+
+## 2. 🏗️ Arsitektur Aplikasi
+Aplikasi Doran Pay dibangun dengan menerapkan prinsip **Clean Architecture** untuk memastikan kode mudah dipelihara (*maintainable*), diuji (*testable*), dan dikembangkan lebih lanjut. Kode dipisahkan menjadi 3 layer utama:
 
 ```
 lib/
 ├── core/
-│   ├── constants/app_constants.dart  # Base URL & konstanta
-│   ├── network/api_client.dart       # Dio HTTP client + JWT interceptor
-│   └── theme/app_theme.dart          # Neo-brutalism theme
+│   ├── constants/       # Konfigurasi URL API & Endpoint
+│   └── theme/           # Konfigurasi tema warna gelap & merah
 ├── data/
-│   ├── models/models.dart            # UserModel, AccountModel, TransactionModel
-│   └── repositories/repositories.dart # API calls (Auth, Account, Payment, OTP)
+│   ├── datasources/     # Pemanggilan REST API Backend & Secure Storage
+│   └── models/          # Entitas serialisasi JSON (User, Account, Transaction)
+├── domain/
+│   ├── usecases/        # Logika bisnis inti yang berdiri sendiri
+│   └── repositories/    # Abstraksi antarmuka data
 ├── presentation/
-│   ├── screens/
-│   │   ├── splash_screen.dart
-│   │   ├── onboarding/onboarding_screen.dart
-│   │   ├── auth/
-│   │   │   ├── login_screen.dart
-│   │   │   ├── register_screen.dart
-│   │   │   └── verify_email_screen.dart
-│   │   ├── dashboard/dashboard_screen.dart
-│   │   ├── transaction/
-│   │   │   ├── topup_screen.dart
-│   │   │   └── transfer_screen.dart
-│   │   └── profile/security_screen.dart
-│   └── widgets/brutal_widgets.dart   # Reusable Neo-Brutalism widgets
-├── providers/
-│   ├── auth_provider.dart            # Firebase Auth state management
-│   └── account_provider.dart        # Account & transaction state
-├── firebase_options.dart             # Firebase platform config
-└── main.dart                         # Entry point & routing
+│   ├── blocs/           # State Management menggunakan BLoC (Auth, Account, OTP)
+│   ├── pages/           # Layar Antarmuka (Splash, Login, 2FA, Home, Checkout, Success)
+│   └── widgets/         # Komponen UI Reusable (AppButton, AppField, CodeInput)
+└── main.dart            # Entry point aplikasi & Routing (GoRouter)
 ```
 
-## ⚙️ Setup Firebase
+### Penjelasan Layer:
+1. **Presentation Layer (BLoC)**: Mengelola state aplikasi secara reaktif. BLoC memisahkan logika bisnis dari UI. Halaman-halaman hanya bertugas menampilkan data yang diterima dari state BLoC dan mengirimkan event (misalnya meminta OTP atau mengonfirmasi pembayaran).
+2. **Domain Layer**: Merupakan inti aplikasi yang berisi *Usecases* independen tanpa ketergantungan pada library UI.
+3. **Data Layer**: Mengurus komunikasi data mentah. Menggunakan **Dio HTTP Client** untuk terhubung ke backend API serta **Flutter Secure Storage** untuk menyimpan token akses JWT secara terenkripsi di penyimpanan lokal HP.
 
-1. Buka [Firebase Console](https://console.firebase.google.com/) dan pilih project **e-money-c9bec**
-2. Tambahkan app Android/Web ke project (jika belum ada)
-3. Download `google-services.json` dan letakkan di `android/app/google-services.json`
-4. Update `lib/firebase_options.dart` dengan nilai dari Firebase Console:
-   - `appId` → dari google-services.json: `mobilesdk_app_id`
-   - `messagingSenderId` → `project_number`
+---
 
-```dart
-// lib/firebase_options.dart
-static const FirebaseOptions android = FirebaseOptions(
-  apiKey: 'AIzaSyCWAzGMTyg1uSspi1qfno71sj4iCfp7qGk',
-  appId: '1:SENDER_ID:android:APP_ID',  // ← dari google-services.json
-  messagingSenderId: 'SENDER_ID',        // ← project_number
-  projectId: 'e-money-c9bec',
-  storageBucket: 'e-money-c9bec.firebasestorage.app',
-);
-```
+## 3. 🔐 Implementasi Deep Link & Keamanan 2FA
+Mekanisme ini dirancang untuk memenuhi ketentuan utama integrasi *App-to-App* yang aman:
 
-## 🔧 Setup Google Sign-In (Android)
+### A. Alur Deep Link (Checkout Gateway)
+1. Aplikasi E-Commerce mengirimkan request checkout dengan memicu tautan:
+   `dpay://checkout?amount=xxx&recipient_email=xxx&trx_id=xxx&callback_url=xxx`
+2. Aplikasi **Doran Pay** akan menangkap tautan tersebut, membaca parameter transaksi, dan menampilkan halaman pembayaran merchant secara otomatis.
+3. Setelah pengguna memasukkan PIN dan memverifikasi kode 2FA, Doran Pay memotong saldo pengguna melalui API backend.
+4. Doran Pay membuka kembali aplikasi E-Commerce menggunakan URL callback yang diterima (misal: `ecommerce://callback?status=success&trx_id=xxx&amount=xxx&recipient_email=xxx`).
 
-Di `android/app/src/main/AndroidManifest.xml`, pastikan ada intent filter untuk Google Sign-In, atau tambahkan `SHA-1` fingerprint di Firebase Console.
+### B. Opsi Keamanan Two-Factor Authentication (2FA)
+Aplikasi mendukung 3 metode 2FA dinamis yang dapat dipilih oleh pengguna:
+1. **Email OTP (SMTP)**: Mengirimkan 6 digit kode unik ke alamat email pengguna melalui server SMTP (diimplementasikan pada form registrasi dan checkout).
+2. **Authenticator (TOTP)**: Sinkronisasi kode 6 digit berbasis waktu (Time-based One-Time Password) yang terhubung dengan Google Authenticator atau Authy (diaktifkan melalui scan QR Code di menu akun).
+3. **Push Notification OTP**: Verifikasi instan melalui pengiriman push message ke HP pengguna menggunakan layanan Firebase Cloud Messaging (FCM).
 
-## 🚀 Menjalankan App
+---
 
+## 4. 🚀 Cara Menjalankan Proyek
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi di lingkungan lokal Anda:
+
+### Langkah 1: Persiapan Backend & Database
+Pastikan backend `be-emoney` (layanan Go) telah berjalan dan terhubung dengan database lokal Anda sebelum memulai aplikasi mobile.
+
+### Langkah 2: Instalasi Dependensi Flutter
+Buka terminal di folder `fe-emoney` lalu jalankan perintah:
 ```bash
-# Install dependencies
 flutter pub get
-
-# Jalankan di Android emulator
-flutter run -d emulator-5554
-
-# Jalankan di Windows
-flutter run -d windows
-
-# Jalankan di Web (Chrome)
-flutter run -d chrome
 ```
 
-## 🌐 API Backend
-
-Backend berjalan di `http://localhost:8080` (Go + Gin).
-
-Base URL otomatis dipilih berdasarkan platform:
-- **Android emulator** → `http://10.0.2.2:8080/v1`
-- **Windows / Web** → `http://localhost:8080/v1`
-
-## 📋 Fitur
-
-| Fitur | Status |
-|-------|--------|
-| Splash Screen + Onboarding | ✅ |
-| Login Email/Password | ✅ |
-| Register + Verifikasi OTP Email | ✅ |
-| Google Sign-In | ✅ |
-| Dashboard (Saldo + Quick Actions) | ✅ |
-| Riwayat Transaksi | ✅ |
-| Top Up Saldo | ✅ |
-| Transfer dengan OTP | ✅ |
-| Pilih OTP: Email / Firebase / TOTP | ✅ |
-| Setup Google Authenticator (TOTP) | ✅ |
-| QR Code untuk TOTP Setup | ✅ |
-| Profil Pengguna | ✅ |
-| Pengaturan Keamanan | ✅ |
-
-## 🔐 Alur Keamanan Transfer
-
-```
-Pilih nominal → Pilih metode OTP → Kirim OTP → Masukkan kode → Transfer berhasil
+### Langkah 3: Menjalankan Aplikasi
+Hubungkan HP Android (aktifkan USB Debugging) atau jalankan Emulator Android, kemudian ketik:
+```bash
+flutter run
 ```
 
-Metode OTP yang tersedia:
-1. **Email OTP** — kode 6 digit dikirim ke email
-2. **Firebase Push** — notifikasi push ke HP
-3. **TOTP/Google Authenticator** — kode berdasarkan waktu
+---
 
-## 📦 Dependencies Utama
+## 5. 📦 Daftar Dependensi Utama
+* `flutter_bloc` & `bloc` — Library state management terstruktur.
+* `firebase_core` & `firebase_auth` — Otentikasi pengguna berbasis Firebase.
+* `dio` & `pretty_dio_logger` — HTTP client untuk komunikasi API backend dan pencatatan log.
+* `flutter_secure_storage` — Penyimpanan token otentikasi JWT secara aman di HP.
+* `qr_flutter` — Membuat QR Code untuk integrasi Google Authenticator.
+* `pinput` — Kotak masukan kode OTP 6 digit yang responsif.
+* `google_fonts` — Pemuatan font sans-serif modern (Plus Jakarta Sans).
 
-- `firebase_core` + `firebase_auth` — Authentication
-- `google_sign_in` — Google OAuth
-- `dio` + `pretty_dio_logger` — HTTP requests
-- `provider` — State management
-- `flutter_secure_storage` — Token storage
-- `pinput` — OTP input field
-- `qr_flutter` — QR code untuk TOTP setup
-- `google_fonts` — Syne + Space Grotesk fonts
-- `intl` — Format tanggal Bahasa Indonesia
+---
+
+## 📸 Screenshot Aplikasi
+*(Anda dapat melampirkan screenshot antarmuka aplikasi di bawah ini)*
+
+| Halaman Utama (Doran Pay) | Halaman Pembayaran Merchant | Verifikasi Keamanan (2FA) |
+| :---: | :---: | :---: |
+| ![Home](screenshots/home.png) | ![Checkout](screenshots/checkout.png) | ![Security](screenshots/2fa.png) |
+
+---
+
+## 🎥 Link Video Presentasi
+Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode program pada tautan YouTube berikut:
+* 🔗 **[Link Video Presentasi UAS Mobile Lanjutan](https://youtube.com/...)**
