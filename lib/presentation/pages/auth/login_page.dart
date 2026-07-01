@@ -95,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
         if (state is AuthNeedsVerification) {
           if (state.user.totpEnabled) {
             context.go('/2fa/totp');
