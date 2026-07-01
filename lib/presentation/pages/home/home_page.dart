@@ -172,9 +172,10 @@ class _HomePageState extends State<HomePage> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.85),
         borderRadius: BorderRadius.circular(22),
         boxShadow: AppColors.shadowCard,
+        border: Border.all(color: Colors.white.withOpacity(0.3)),
       ),
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 8),
       child: Column(
@@ -185,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const AppLogo(size: 26),
                   const SizedBox(width: 7),
-                  const Text('Saldo DKG',
+                  const Text('Saldo Doran',
                       style: TextStyle(
                         fontFamily: 'PlusJakartaSans',
                         fontSize: 13,
@@ -291,9 +292,10 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.85),
               borderRadius: BorderRadius.circular(16),
               boxShadow: AppColors.shadowSoft,
+              border: Border.all(color: Colors.white.withOpacity(0.3)),
             ),
             child: Row(
               children: [
@@ -326,9 +328,10 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.85),
               borderRadius: BorderRadius.circular(16),
               boxShadow: AppColors.shadowSoft,
+              border: Border.all(color: Colors.white.withOpacity(0.3)),
             ),
             child: Row(
               children: [
@@ -373,9 +376,10 @@ class _HomePageState extends State<HomePage> {
     ];
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.85),
         borderRadius: BorderRadius.circular(20),
         boxShadow: AppColors.shadowSoft,
+        border: Border.all(color: Colors.white.withOpacity(0.3)),
       ),
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
       child: GridView.count(
@@ -460,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           )),
                       SizedBox(height: 2),
-                      Text('Simulasi checkout e-commerce → bayar via DKG',
+                      Text('Simulasi checkout e-commerce → bayar via Doran Pay',
                           style: TextStyle(
                             fontFamily: 'PlusJakartaSans',
                             fontSize: 12.5,

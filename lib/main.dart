@@ -77,7 +77,7 @@ class _DompetKampusAppState extends State<DompetKampusApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Dompet Kampus Global',
+      title: 'Doran Pay',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: AppRouter.router,

@@ -28,7 +28,7 @@ class TransferPage extends StatefulWidget {
 }
 
 class _TransferPageState extends State<TransferPage> {
-  String _tab = 'dkg';
+  String _tab = 'doran';
   String _q = '';
 
   @override
@@ -44,7 +44,7 @@ class _TransferPageState extends State<TransferPage> {
             child: Column(
               children: [
                 Row(
-                  children: [['dkg', 'Sesama DKG'], ['bank', 'Ke Bank']].map((t) {
+                  children: [['doran', 'Sesama Doran'], ['bank', 'Ke Bank']].map((t) {
                     final active = _tab == t[0];
                     return Expanded(
                       child: GestureDetector(
@@ -74,7 +74,7 @@ class _TransferPageState extends State<TransferPage> {
                 AppField(
                   value: _q,
                   onChanged: (v) => setState(() => _q = v),
-                  placeholder: _tab == 'dkg' ? 'Cari nama / nomor HP' : 'Cari bank',
+                  placeholder: _tab == 'doran' ? 'Cari nama / nomor HP' : 'Cari bank',
                   prefixIcon: const Icon(Icons.search_rounded, size: 20),
                 ),
                 const SizedBox(height: 14),
@@ -85,7 +85,7 @@ class _TransferPageState extends State<TransferPage> {
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-              child: _tab == 'dkg' ? _buildContacts() : _buildBanks(),
+              child: _tab == 'doran' ? _buildContacts() : _buildBanks(),
             ),
           ),
         ],
@@ -121,7 +121,7 @@ class _TransferPageState extends State<TransferPage> {
                   GestureDetector(
                     onTap: () => context.go('/transfer/amount', extra: {
                       'recipient': c,
-                      'channel': 'dkg',
+                      'channel': 'doran',
                     }),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),

@@ -366,7 +366,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        const Text('Dompet Kampus Global',
+                                        const Text('Doran Pay',
                                             style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.ink)),
                                         isLoadingAccount
                                             ? const SizedBox(

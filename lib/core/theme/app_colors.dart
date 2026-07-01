@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Blue
-  static const Color primary = Color(0xFF0B63E5);
-  static const Color primaryLight = Color(0xFF2C8BFF);
-  static const Color primaryDark = Color(0xFF0A4FBF);
-  static const Color primarySurface = Color(0xFFE8F1FD);
-  static const Color primaryBorder = Color(0xFFB8D0F7);
+  // Primary Red (Doran Pay)
+  static const Color primary = Color(0xFFE5484D);
+  static const Color primaryLight = Color(0xFFFF6A70);
+  static const Color primaryDark = Color(0xFFB8252C);
+  static const Color primarySurface = Color(0xFFFDECED);
+  static const Color primaryBorder = Color(0xFFF7C2C4);
 
   // Semantic
   static const Color green = Color(0xFF16A571);
@@ -26,7 +26,7 @@ class AppColors {
   static const Color slate300 = Color(0xFFCBD2DD);
   static const Color line = Color(0xFFE8ECF2);
   static const Color line2 = Color(0xFFF3F5F8);
-  static const Color bg = Color(0xFFF6F7F9);
+  static const Color bg = Color(0xFFFAF6F6); // Soft white/pink tint
   static const Color white = Color(0xFFFFFFFF);
 
   // Gradient
@@ -37,26 +37,26 @@ class AppColors {
     colors: [primaryLight, primary, primaryDark],
   );
 
-  // Shadows
+  // Shadows (Soft Red-Tinted Glassmorphism)
   static List<BoxShadow> shadowCard = [
     BoxShadow(
-      color: Color(0x14000000),
+      color: Color(0x1F7A0E13), // Subtle red-grey shadow
       blurRadius: 24,
       spreadRadius: 0,
-      offset: Offset(0, 4),
+      offset: Offset(0, 8),
     ),
   ];
   static List<BoxShadow> shadowSoft = [
     BoxShadow(
-      color: Color(0x0A000000),
+      color: Color(0x0F7A0E13),
       blurRadius: 12,
       spreadRadius: 0,
-      offset: Offset(0, 2),
+      offset: Offset(0, 4),
     ),
   ];
   static List<BoxShadow> shadowPrimary = [
     BoxShadow(
-      color: Color(0x520B63E5),
+      color: Color(0x52E5484D),
       blurRadius: 22,
       spreadRadius: 0,
       offset: Offset(0, 10),
