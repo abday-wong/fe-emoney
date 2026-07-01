@@ -500,7 +500,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                         color: Colors.white,
                         border: Border(top: BorderSide(color: AppColors.line2)),
                       ),
-                      padding: EdgeInsets.fromLTRB(16, 12, 16, MediaQuery.of(context).padding.bottom + 16),
+                      padding: EdgeInsets.fromLTRB(16, 12, 24, MediaQuery.of(context).padding.bottom + 16),
                       child: Row(
                         children: [
                           Expanded(

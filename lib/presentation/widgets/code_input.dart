@@ -104,17 +104,17 @@ class _CodeInputState extends State<CodeInput> {
                     height: boxSize > 40 ? 56 : boxSize + 10,
                     margin: const EdgeInsets.symmetric(horizontal: horizontalMargin),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(13),
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.zero,
                       border: Border.all(
                         color: widget.hasError
                             ? AppColors.red
                             : active
                                 ? AppColors.primary
                                 : filled
-                                    ? AppColors.primaryBorder
+                                    ? AppColors.primary
                                     : AppColors.line,
-                        width: 1.6,
+                        width: 2.0,
                       ),
                       boxShadow: active
                           ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.1), blurRadius: 0, spreadRadius: 4)]
