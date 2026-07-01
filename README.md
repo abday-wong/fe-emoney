@@ -1,41 +1,41 @@
-# Doran Pay - Aplikasi E-Wallet & Payment Gateway
+# Doran Pay - Aplikasi E-Wallet dan Payment Gateway
 
-Proyek ini adalah bagian dari tugas **Ujian Akhir Semester (UAS) Genap 2025/2026** untuk mata kuliah **Aplikasi Mobile Lanjutan**.
+Proyek ini adalah bagian dari tugas Ujian Akhir Semester (UAS) Genap 2025/2026 untuk mata kuliah Aplikasi Mobile Lanjutan.
 
-### 👤 Identitas Mahasiswa
-* **Nama**: [Tulis Nama Anda Di Sini]
-* **NIM**: [Tulis NIM Anda Di Sini]
-* **Kelas**: [Tulis Kelas Anda Di Sini]
+### Identitas Mahasiswa
+* **Nama**: Muhammad Abday Abdul Hafidz
+* **NIM**: 1123150093
+* **Kelas**: TI SE23 P1
 * **Matakuliah**: Aplikasi Mobile Lanjutan (KB1154)
 * **Program Studi**: Teknik Informatika
 * **Dosen Pengampu**: IKetut Gunawan, S.KOM, M.T.I
-* **Institut**: Institut Teknologi & Bisnis Bina Sarana Global
+* **Institut**: Institut Teknologi dan Bisnis Bina Sarana Global
 
 ---
 
-## 1. 📱 Deskripsi Aplikasi
-**Doran Pay** adalah aplikasi dompet digital (E-Wallet) dan payment gateway mandiri yang dibangun menggunakan Flutter. Aplikasi ini berfungsi sebagai penyedia layanan pembayaran digital (wallet) yang diintegrasikan langsung secara *App-to-App* dengan aplikasi e-commerce **Doran Gaming Console** melalui mekanisme **Deep Link**.
+## 1. Deskripsi Aplikasi
+Doran Pay adalah aplikasi dompet digital (E-Wallet) dan payment gateway mandiri yang dibangun menggunakan Flutter. Aplikasi ini berfungsi sebagai penyedia layanan pembayaran digital (wallet) yang diintegrasikan langsung secara App-to-App dengan aplikasi e-commerce Doran Gaming Console melalui mekanisme Deep Link.
 
 ### Fitur Utama:
 * **Manajemen Saldo**: Menampilkan informasi saldo akun pengguna secara real-time.
-* **Otentikasi & Registrasi**: Pendaftaran akun baru dengan verifikasi keamanan awal.
+* **Otentikasi dan Registrasi**: Pendaftaran akun baru dengan verifikasi keamanan awal.
 * **Integrasi Pembayaran (Deep Link)**: Menerima permintaan checkout belanja dari aplikasi E-Commerce, memproses pembayaran, memotong saldo, dan mengembalikan status transaksi sukses/gagal ke aplikasi E-Commerce.
 * **Two-Factor Authentication (2FA)**: Pengamanan transaksi digital menggunakan verifikasi 2 langkah (Email OTP, Google Authenticator TOTP, dan Push Notification).
 * **Riwayat Transaksi**: Mencatat semua detail pengeluaran (debit) dan pemasukan saldo (credit).
-* **Desain Estetika Premium (Persona 5 Royal)**: Antarmuka bertema gelap (*dark theme*) dengan kombinasi warna hitam pekat, abu-abu gelap, dan merah menyala, dilengkapi dengan aksen visual yang memanjakan mata.
+* **Desain Estetika Premium (Persona 5 Royal)**: Antarmuka bertema gelap (dark theme) dengan kombinasi warna hitam pekat, abu-abu gelap, dan merah menyala, dilengkapi dengan aksen visual yang memanjakan mata.
 
 ---
 
-## 2. 🏗️ Arsitektur Aplikasi
-Aplikasi Doran Pay dibangun dengan menerapkan prinsip **Clean Architecture** untuk memastikan kode mudah dipelihara (*maintainable*), diuji (*testable*), dan dikembangkan lebih lanjut. Kode dipisahkan menjadi 3 layer utama:
+## 2. Arsitektur Aplikasi
+Aplikasi Doran Pay dibangun dengan menerapkan prinsip Clean Architecture untuk memastikan kode mudah dipelihara (maintainable), diuji (testable), dan dikembangkan lebih lanjut. Kode dipisahkan menjadi 3 layer utama:
 
 ```
 lib/
 ├── core/
-│   ├── constants/       # Konfigurasi URL API & Endpoint
-│   └── theme/           # Konfigurasi tema warna gelap & merah
+│   ├── constants/       # Konfigurasi URL API dan Endpoint
+│   └── theme/           # Konfigurasi tema warna gelap dan merah
 ├── data/
-│   ├── datasources/     # Pemanggilan REST API Backend & Secure Storage
+│   ├── datasources/     # Pemanggilan REST API Backend dan Secure Storage
 │   └── models/          # Entitas serialisasi JSON (User, Account, Transaction)
 ├── domain/
 │   ├── usecases/        # Logika bisnis inti yang berdiri sendiri
@@ -44,23 +44,23 @@ lib/
 │   ├── blocs/           # State Management menggunakan BLoC (Auth, Account, OTP)
 │   ├── pages/           # Layar Antarmuka (Splash, Login, 2FA, Home, Checkout, Success)
 │   └── widgets/         # Komponen UI Reusable (AppButton, AppField, CodeInput)
-└── main.dart            # Entry point aplikasi & Routing (GoRouter)
+└── main.dart            # Entry point aplikasi dan Routing (GoRouter)
 ```
 
 ### Penjelasan Layer:
 1. **Presentation Layer (BLoC)**: Mengelola state aplikasi secara reaktif. BLoC memisahkan logika bisnis dari UI. Halaman-halaman hanya bertugas menampilkan data yang diterima dari state BLoC dan mengirimkan event (misalnya meminta OTP atau mengonfirmasi pembayaran).
-2. **Domain Layer**: Merupakan inti aplikasi yang berisi *Usecases* independen tanpa ketergantungan pada library UI.
-3. **Data Layer**: Mengurus komunikasi data mentah. Menggunakan **Dio HTTP Client** untuk terhubung ke backend API serta **Flutter Secure Storage** untuk menyimpan token akses JWT secara terenkripsi di penyimpanan lokal HP.
+2. **Domain Layer**: Merupakan inti aplikasi yang berisi Usecases independen tanpa ketergantungan pada library UI.
+3. **Data Layer**: Mengurus komunikasi data mentah. Menggunakan Dio HTTP Client untuk terhubung ke backend API serta Flutter Secure Storage untuk menyimpan token akses JWT secara terenkripsi di penyimpanan lokal HP.
 
 ---
 
-## 3. 🔐 Implementasi Deep Link & Keamanan 2FA
-Mekanisme ini dirancang untuk memenuhi ketentuan utama integrasi *App-to-App* yang aman:
+## 3. Implementasi Deep Link dan Keamanan 2FA
+Mekanisme ini dirancang untuk memenuhi ketentuan utama integrasi App-to-App yang aman:
 
 ### A. Alur Deep Link (Checkout Gateway)
 1. Aplikasi E-Commerce mengirimkan request checkout dengan memicu tautan:
    `dpay://checkout?amount=xxx&recipient_email=xxx&trx_id=xxx&callback_url=xxx`
-2. Aplikasi **Doran Pay** akan menangkap tautan tersebut, membaca parameter transaksi, dan menampilkan halaman pembayaran merchant secara otomatis.
+2. Aplikasi Doran Pay akan menangkap tautan tersebut, membaca parameter transaksi, dan menampilkan halaman pembayaran merchant secara otomatis.
 3. Setelah pengguna memasukkan PIN dan memverifikasi kode 2FA, Doran Pay memotong saldo pengguna melalui API backend.
 4. Doran Pay membuka kembali aplikasi E-Commerce menggunakan URL callback yang diterima (misal: `ecommerce://callback?status=success&trx_id=xxx&amount=xxx&recipient_email=xxx`).
 
@@ -72,14 +72,14 @@ Aplikasi mendukung 3 metode 2FA dinamis yang dapat dipilih oleh pengguna:
 
 ---
 
-## 4. 🚀 Cara Menjalankan Proyek
+## 4. Cara Menjalankan Proyek
 Ikuti langkah-langkah berikut untuk menjalankan aplikasi di lingkungan lokal Anda:
 
-### Langkah 1: Persiapan Backend & Database
-Pastikan backend `be-emoney` (layanan Go) telah berjalan dan terhubung dengan database lokal Anda sebelum memulai aplikasi mobile.
+### Langkah 1: Persiapan Backend dan Database
+Pastikan backend be-emoney (layanan Go) telah berjalan dan terhubung dengan database lokal Anda sebelum memulai aplikasi mobile.
 
 ### Langkah 2: Instalasi Dependensi Flutter
-Buka terminal di folder `fe-emoney` lalu jalankan perintah:
+Buka terminal di folder fe-emoney lalu jalankan perintah:
 ```bash
 flutter pub get
 ```
@@ -92,10 +92,10 @@ flutter run
 
 ---
 
-## 5. 📦 Daftar Dependensi Utama
-* `flutter_bloc` & `bloc` — Library state management terstruktur.
-* `firebase_core` & `firebase_auth` — Otentikasi pengguna berbasis Firebase.
-* `dio` & `pretty_dio_logger` — HTTP client untuk komunikasi API backend dan pencatatan log.
+## 5. Daftar Dependensi Utama
+* `flutter_bloc` dan `bloc` — Library state management terstruktur.
+* `firebase_core` dan `firebase_auth` — Otentikasi pengguna berbasis Firebase.
+* `dio` dan `pretty_dio_logger` — HTTP client untuk komunikasi API backend dan pencatatan log.
 * `flutter_secure_storage` — Penyimpanan token otentikasi JWT secara aman di HP.
 * `qr_flutter` — Membuat QR Code untuk integrasi Google Authenticator.
 * `pinput` — Kotak masukan kode OTP 6 digit yang responsif.
@@ -103,8 +103,7 @@ flutter run
 
 ---
 
-## 📸 Screenshot Aplikasi
-*(Anda dapat melampirkan screenshot antarmuka aplikasi di bawah ini)*
+## Screenshot Aplikasi
 
 | Halaman Utama (Doran Pay) | Halaman Pembayaran Merchant | Verifikasi Keamanan (2FA) |
 | :---: | :---: | :---: |
@@ -112,6 +111,6 @@ flutter run
 
 ---
 
-## 🎥 Link Video Presentasi
+## Link Video Presentasi
 Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode program pada tautan YouTube berikut:
-* 🔗 **[Link Video Presentasi UAS Mobile Lanjutan](https://youtube.com/...)**
+* **[Link Video Presentasi UAS Mobile Lanjutan](https://youtube.com/...)**
