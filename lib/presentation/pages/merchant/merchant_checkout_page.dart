@@ -198,10 +198,8 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
       ],
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
-          bool isTotp = false;
-          if (authState is AuthAuthenticated) {
-            isTotp = authState.user.totpEnabled;
-          }
+          // Login menggunakan Google Authenticator (TOTP), tapi konfirmasi pembayaran merchant dipaksa menggunakan OTP Email
+          const bool isTotp = false;
 
           return Scaffold(
             backgroundColor: AppColors.bg,
