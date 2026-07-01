@@ -159,7 +159,18 @@ class AppRouter {
               ));
             },
           ),
-          GoRoute(path: '/merchant', builder: (_, __) => _withPayment(const MerchantCheckoutPage())),
+          GoRoute(
+            path: '/merchant',
+            builder: (_, __) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<AuthBloc>()),
+                BlocProvider(create: (_) => sl<AccountBloc>()),
+                BlocProvider(create: (_) => sl<PaymentBloc>()),
+                BlocProvider(create: (_) => sl<OtpBloc>()),
+              ],
+              child: const MerchantCheckoutPage(),
+            ),
+          ),
         ],
       );
 
