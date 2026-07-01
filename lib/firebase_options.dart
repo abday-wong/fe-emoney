@@ -50,20 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCjDGujoGKnxzpTOjN56cOXQC24tE91_oE',
-    appId: '1:645464418870:web:d17d565d4daed4101ec697',
-    messagingSenderId: '645464418870',
-    projectId: 'emoney-app-81e69',
-    authDomain: 'emoney-app-81e69.firebaseapp.com',
-    storageBucket: 'emoney-app-81e69.firebasestorage.app',
-    measurementId: 'G-6MSJ4VNVYR',
+    apiKey: 'AIzaSyDrNfvbN_g3Ft1nOcmF7sTNvRgvdkMF2C4',
+    appId: '1:933865238135:web:74aebfc3fead49ccc56072',
+    messagingSenderId: '933865238135',
+    projectId: 'emoney-app-2848a',
+    authDomain: 'emoney-app-2848a.firebaseapp.com',
+    storageBucket: 'emoney-app-2848a.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCnsA0qnM2pqpbi7rALagRbK4To-faO1k0',
-    appId: '1:645464418870:android:ead5e7c7496e4a1a1ec697',
-    messagingSenderId: '645464418870',
-    projectId: 'emoney-app-81e69',
-    storageBucket: 'emoney-app-81e69.firebasestorage.app',
+    apiKey: 'AIzaSyDrNfvbN_g3Ft1nOcmF7sTNvRgvdkMF2C4',
+    appId: '1:933865238135:android:74aebfc3fead49ccc56072',
+    messagingSenderId: '933865238135',
+    projectId: 'emoney-app-2848a',
+    storageBucket: 'emoney-app-2848a.firebasestorage.app',
   );
 }
