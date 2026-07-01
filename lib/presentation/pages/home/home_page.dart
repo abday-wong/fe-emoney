@@ -418,10 +418,16 @@ class _HomePageState extends State<HomePage> {
     ];
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.85),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: AppColors.shadowSoft,
-        border: Border.all(color: Colors.white.withOpacity(0.3)),
+        color: AppColors.white,
+        borderRadius: BorderRadius.zero,
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.primary,
+            offset: Offset(4, 4),
+            blurRadius: 0,
+          ),
+        ],
+        border: Border.all(color: Colors.white, width: 2.5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
       child: GridView.count(
@@ -552,9 +558,16 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 13),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: AppColors.shadowSoft,
+            color: AppColors.white,
+            borderRadius: BorderRadius.zero,
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.primary,
+                offset: Offset(4, 4),
+                blurRadius: 0,
+              ),
+            ],
+            border: Border.all(color: Colors.white, width: 2.5),
           ),
           child: txns.isEmpty
               ? const Padding(

@@ -30,10 +30,7 @@ class AccountPage extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     gradient: AppColors.primaryGradient,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(28),
-                      bottomRight: Radius.circular(28),
-                    ),
+                    borderRadius: BorderRadius.zero,
                   ),
                   padding: EdgeInsets.fromLTRB(
                       20, MediaQuery.of(context).padding.top + 12, 20, 24),
@@ -66,7 +63,8 @@ class AccountPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.18),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.zero,
+                          border: Border.all(color: Colors.white, width: 1.5),
                         ),
                         child: const Row(
                           children: [
@@ -98,15 +96,22 @@ class AccountPage extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'PlusJakartaSans',
                               fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.slate400,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.slate500,
                             )),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(18),
-                          boxShadow: AppColors.shadowSoft,
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.zero,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppColors.primary,
+                              offset: Offset(4, 4),
+                              blurRadius: 0,
+                            ),
+                          ],
+                          border: Border.all(color: Colors.white, width: 2.5),
                         ),
                         child: Column(
                           children: [
@@ -147,15 +152,22 @@ class AccountPage extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'PlusJakartaSans',
                               fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.slate400,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.slate500,
                             )),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(18),
-                          boxShadow: AppColors.shadowSoft,
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.zero,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppColors.primary,
+                              offset: Offset(4, 4),
+                              blurRadius: 0,
+                            ),
+                          ],
+                          border: Border.all(color: Colors.white, width: 2.5),
                         ),
                         child: Column(
                           children: [
@@ -174,9 +186,16 @@ class AccountPage extends StatelessWidget {
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: AppColors.shadowSoft,
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.zero,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: AppColors.primary,
+                                offset: Offset(4, 4),
+                                blurRadius: 0,
+                              ),
+                            ],
+                            border: Border.all(color: Colors.white, width: 2.5),
                           ),
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -187,7 +206,7 @@ class AccountPage extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: 'PlusJakartaSans',
                                     color: AppColors.red,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w900,
                                     fontSize: 15,
                                   )),
                             ],
