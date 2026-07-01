@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_bloc_observer.dart';
-import 'injection/injection_container.dart' as di;
-
+import 'core/network/api_client.dart';
+import 'injection/injection_container.dart' as di; // Wait, actually the original was import 'injection/injection_container.dart' as di; Let's keep it exact.
 import 'core/utils/deep_link_handler.dart';
 import 'data/datasources/local/secure_storage_datasource.dart';
 import 'injection/injection_container.dart';
@@ -21,6 +21,12 @@ void main() async {
 
   // Initialize dependency injection
   await di.init();
+
+  // Load saved token if exists on startup
+  final token = await sl<SecureStorageDatasource>().getToken();
+  if (token != null) {
+    sl<ApiClient>().setAuthToken(token);
+  }
 
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
