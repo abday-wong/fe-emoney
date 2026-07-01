@@ -274,7 +274,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                             Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: AppColors.shadowSoft,
                                 border: Border.all(color: AppColors.line2),
@@ -350,7 +350,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: AppColors.shadowSoft,
                                 border: Border.all(color: AppColors.line2),
@@ -428,7 +428,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: AppColors.white,
                                   borderRadius: BorderRadius.circular(16),
                                   boxShadow: AppColors.shadowSoft,
                                   border: Border.all(color: AppColors.line2),
@@ -456,32 +456,22 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5, color: AppColors.ink),
                                       ),
                                       const SizedBox(height: 12),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: CodeInput(
-                                              value: _otpController.text,
-                                              onChanged: (v) => setState(() {
-                                                _otpController.text = v;
-                                                _hasCodeError = false;
-                                              }),
-                                              hasError: _hasCodeError,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          ElevatedButton(
-                                            onPressed: _sendEmailOtp,
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: AppColors.primary,
-                                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                            ),
-                                            child: Text(
-                                              _otpSent ? 'Kirim Ulang' : 'Minta OTP',
-                                              style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 12),
-                                            ),
-                                          ),
-                                        ],
+                                      CodeInput(
+                                        value: _otpController.text,
+                                        onChanged: (v) => setState(() {
+                                          _otpController.text = v;
+                                          _hasCodeError = false;
+                                        }),
+                                        hasError: _hasCodeError,
+                                      ),
+                                      const SizedBox(height: 16),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: AppButton(
+                                          label: _otpSent ? 'Kirim Ulang Kode OTP' : 'Minta Kode OTP Email',
+                                          size: AppButtonSize.md,
+                                          onPressed: _sendEmailOtp,
+                                        ),
                                       ),
                                     ],
                                   ],
@@ -495,7 +485,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                     // Pay action bar
                     Container(
                       decoration: const BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.white,
                         border: Border(top: BorderSide(color: AppColors.line2)),
                       ),
                       padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 10),
