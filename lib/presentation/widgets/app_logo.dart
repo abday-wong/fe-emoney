@@ -17,6 +17,21 @@ class AppLogo extends StatelessWidget {
       width: size,
       height: size,
       fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            color: light ? Colors.white.withOpacity(0.2) : AppColors.primarySurface,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.account_balance_wallet_rounded,
+            size: size * 0.6,
+            color: light ? Colors.white : AppColors.primary,
+          ),
+        );
+      },
     );
 
     if (!withText) return icon;
