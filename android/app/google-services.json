@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645464418870",
+    "project_id": "emoney-app-81e69",
+    "storage_bucket": "emoney-app-81e69.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645464418870:android:ead5e7c7496e4a1a1ec697",
+        "android_client_info": {
+          "package_name": "com.dpay.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnsA0qnM2pqpbi7rALagRbK4To-faO1k0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
