@@ -8,6 +8,7 @@ import '../../blocs/auth/otp_bloc.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/code_input.dart';
 import '../../widgets/feature_icon.dart';
+import '../../../core/utils/deep_link_handler.dart';
 
 class TwoFATotpPage extends StatefulWidget {
   final String mode;
@@ -57,7 +58,11 @@ class _TwoFATotpPageState extends State<TwoFATotpPage> {
         if (state is OtpTotpSetup) {
           setState(() => _step = 'scan');
         } else if (state is OtpTotpEnabled || state is OtpVerified) {
-          context.go('/home');
+          if (DeepLinkHandler.pendingTrx != null) {
+            context.go('/merchant');
+          } else {
+            context.go('/home');
+          }
         } else if (state is OtpInvalid) {
           setState(() => _hasError = true);
           Future.delayed(const Duration(milliseconds: 650), () {

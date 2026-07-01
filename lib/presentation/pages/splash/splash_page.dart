@@ -6,6 +6,8 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_logo.dart';
 
+import '../../../core/utils/deep_link_handler.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -25,7 +27,11 @@ class _SplashPageState extends State<SplashPage> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          context.go('/home');
+          if (DeepLinkHandler.pendingTrx != null) {
+            context.go('/merchant');
+          } else {
+            context.go('/home');
+          }
         } else if (state is AuthUnauthenticated) {
           // Stay on splash to show welcome
         }

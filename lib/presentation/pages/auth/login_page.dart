@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../../core/utils/deep_link_handler.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../blocs/auth/auth_bloc.dart';
@@ -103,7 +104,11 @@ class _LoginPageState extends State<LoginPage> {
             context.go('/2fa/smtp');
           }
         } else if (state is AuthAuthenticated) {
-          context.go('/home');
+          if (DeepLinkHandler.pendingTrx != null) {
+            context.go('/merchant');
+          } else {
+            context.go('/home');
+          }
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message), backgroundColor: AppColors.red),
