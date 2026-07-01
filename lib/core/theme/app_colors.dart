@@ -1,65 +1,65 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Red (Doran Pay)
-  static const Color primary = Color(0xFFE5484D);
-  static const Color primaryLight = Color(0xFFFF6A70);
-  static const Color primaryDark = Color(0xFFB8252C);
-  static const Color primarySurface = Color(0xFFFDECED);
-  static const Color primaryBorder = Color(0xFFF7C2C4);
+  // Primary Red (Persona 5 Red)
+  static const Color primary = Color(0xFFE60012);
+  static const Color primaryLight = Color(0xFFFF3B47);
+  static const Color primaryDark = Color(0xFF9E000A);
+  static const Color primarySurface = Color(0xFF2C1011);
+  static const Color primaryBorder = Color(0xFF5E0007);
 
   // Semantic
-  static const Color green = Color(0xFF16A571);
-  static const Color greenSurface = Color(0xFFE8F8F2);
-  static const Color amber = Color(0xFFD98512);
-  static const Color amberSurface = Color(0xFFFDF3E3);
-  static const Color red = Color(0xFFE5484D);
-  static const Color redSurface = Color(0xFFFDECED);
-  static const Color violet = Color(0xFF7A5AF8);
-  static const Color violetSurface = Color(0xFFF0EEFF);
+  static const Color green = Color(0xFF00E676);
+  static const Color greenSurface = Color(0xFF0C2B1B);
+  static const Color amber = Color(0xFFFFAB00);
+  static const Color amberSurface = Color(0xFF2B1F0C);
+  static const Color red = Color(0xFFE60012);
+  static const Color redSurface = Color(0xFF2C1011);
+  static const Color violet = Color(0xFFD500F9);
+  static const Color violetSurface = Color(0xFF2B0C2A);
 
   // Neutral
-  static const Color ink = Color(0xFF0E1726);
-  static const Color slate600 = Color(0xFF4B5E78);
-  static const Color slate500 = Color(0xFF6B7A90);
-  static const Color slate400 = Color(0xFF9DABBE);
-  static const Color slate300 = Color(0xFFCBD2DD);
-  static const Color line = Color(0xFFE8ECF2);
-  static const Color line2 = Color(0xFFF3F5F8);
-  static const Color bg = Color(0xFFFAF6F6); // Soft white/pink tint
-  static const Color white = Color(0xFFFFFFFF);
+  static const Color ink = Color(0xFFFFFFFF);
+  static const Color slate600 = Color(0xFFE0E0E0);
+  static const Color slate500 = Color(0xFFB0B0B0);
+  static const Color slate400 = Color(0xFF757575);
+  static const Color slate300 = Color(0xFF424242);
+  static const Color line = Color(0xFF2C2C2E);
+  static const Color line2 = Color(0xFF1C1C1E);
+  static const Color bg = Color(0xFF000000); // Pure Black Background
+  static const Color white = Color(0xFF1A1A1E); // Dark Grey Surface
 
-  // Gradient
+  // Gradient (Red to Black)
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    stops: [0.0, 0.55, 1.0],
-    colors: [primaryLight, primary, primaryDark],
+    stops: [0.0, 1.0],
+    colors: [primary, Colors.black],
   );
 
-  // Shadows (Soft Red-Tinted Glassmorphism)
+  // Shadows (Flat solid black offsets)
   static List<BoxShadow> shadowCard = [
-    BoxShadow(
-      color: Color(0x1F7A0E13), // Subtle red-grey shadow
-      blurRadius: 24,
+    const BoxShadow(
+      color: Colors.black,
+      blurRadius: 0,
       spreadRadius: 0,
-      offset: Offset(0, 8),
+      offset: Offset(4, 4),
     ),
   ];
   static List<BoxShadow> shadowSoft = [
-    BoxShadow(
-      color: Color(0x0F7A0E13),
-      blurRadius: 12,
+    const BoxShadow(
+      color: Colors.black,
+      blurRadius: 0,
       spreadRadius: 0,
-      offset: Offset(0, 4),
+      offset: Offset(3, 3),
     ),
   ];
   static List<BoxShadow> shadowPrimary = [
-    BoxShadow(
-      color: Color(0x52E5484D),
-      blurRadius: 22,
+    const BoxShadow(
+      color: Color(0xFF5E0007),
+      blurRadius: 0,
       spreadRadius: 0,
-      offset: Offset(0, 10),
+      offset: Offset(4, 4),
     ),
   ];
 

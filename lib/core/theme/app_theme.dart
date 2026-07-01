@@ -12,25 +12,26 @@ class AppTheme {
         seedColor: AppColors.primary,
         primary: AppColors.primary,
         onPrimary: Colors.white,
-        secondary: AppColors.green,
+        secondary: AppColors.primary,
         surface: AppColors.white,
         background: AppColors.bg,
         error: AppColors.red,
+        brightness: Brightness.dark,
       ),
       scaffoldBackgroundColor: AppColors.bg,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
         ),
-        iconTheme: IconThemeData(color: AppColors.ink),
+        iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           fontFamily: fontFamily,
-          fontSize: 17,
-          fontWeight: FontWeight.w700,
-          color: AppColors.ink,
+          fontSize: 19,
+          fontWeight: FontWeight.w900,
+          color: Colors.white,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -38,38 +39,40 @@ class AppTheme {
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           minimumSize: const Size(double.infinity, 54),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
           ),
           textStyle: const TextStyle(
             fontFamily: fontFamily,
             fontSize: 16,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w900,
             letterSpacing: 0.1,
           ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: AppColors.white,
         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.line, width: 1.5),
+        labelStyle: const TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+        hintStyle: const TextStyle(color: Colors.white38),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.white, width: 2),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.line, width: 1.5),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.white30, width: 2),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: AppColors.primary, width: 2.5),
         ),
       ),
-      dividerColor: AppColors.line2,
+      dividerColor: AppColors.line,
       dividerTheme: const DividerThemeData(
-        color: AppColors.line2,
-        thickness: 1,
+        color: AppColors.line,
+        thickness: 2.5,
       ),
     );
   }

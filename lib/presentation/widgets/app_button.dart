@@ -39,47 +39,61 @@ class AppButton extends StatelessWidget {
       opacity: disabled ? 0.5 : 1.0,
       child: GestureDetector(
         onTap: disabled || isLoading ? null : onPressed,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          height: height,
-          width: fullWidth ? double.infinity : null,
-          padding: EdgeInsets.symmetric(horizontal: px),
-          decoration: BoxDecoration(
-            gradient: variant == AppButtonVariant.primary ? AppColors.primaryGradient : null,
-            color: variant != AppButtonVariant.primary ? bg : null,
-            borderRadius: BorderRadius.circular(radius),
-            boxShadow: shadow,
-            border: border,
-          ),
-          child: Row(
-            mainAxisSize: fullWidth ? MainAxisSize.max : MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isLoading) ...[
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.4,
-                    valueColor: AlwaysStoppedAnimation(fg),
-                  ),
-                ),
-                const SizedBox(width: 9),
-              ] else if (icon != null) ...[
-                icon!,
-                const SizedBox(width: 9),
+        child: Transform(
+          transform: Matrix4.skewX(-0.15),
+          alignment: Alignment.center,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 120),
+            height: height,
+            width: fullWidth ? double.infinity : null,
+            padding: EdgeInsets.symmetric(horizontal: px),
+            decoration: BoxDecoration(
+              gradient: variant == AppButtonVariant.primary ? AppColors.primaryGradient : null,
+              color: variant != AppButtonVariant.primary ? bg : null,
+              borderRadius: BorderRadius.zero,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(4, 4),
+                  blurRadius: 0,
+                )
               ],
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'PlusJakartaSans',
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w700,
-                  color: fg,
-                  letterSpacing: 0.1,
-                ),
+              border: Border.all(color: Colors.black, width: 2.5),
+            ),
+            child: Transform(
+              transform: Matrix4.skewX(0.15),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: fullWidth ? MainAxisSize.max : MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (isLoading) ...[
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.4,
+                        valueColor: AlwaysStoppedAnimation(fg),
+                      ),
+                    ),
+                    const SizedBox(width: 9),
+                  ] else if (icon != null) ...[
+                    icon!,
+                    const SizedBox(width: 9),
+                  ],
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontFamily: 'PlusJakartaSans',
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w900,
+                      color: fg,
+                      letterSpacing: 0.1,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
