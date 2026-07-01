@@ -39,7 +39,7 @@ class _TransferPageState extends State<TransferPage> {
       body: Column(
         children: [
           Container(
-            color: Colors.white,
+            color: AppColors.bg,
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
             child: Column(
               children: [
@@ -53,16 +53,17 @@ class _TransferPageState extends State<TransferPage> {
                           margin: const EdgeInsets.only(right: 4),
                           padding: const EdgeInsets.symmetric(vertical: 11),
                           decoration: BoxDecoration(
-                            color: active ? AppColors.primary : AppColors.bg,
-                            borderRadius: BorderRadius.circular(12),
+                            color: active ? AppColors.primary : AppColors.white,
+                            borderRadius: BorderRadius.zero,
+                            border: Border.all(color: Colors.white, width: active ? 2 : 1.5),
                           ),
                           child: Center(
                             child: Text(t[1],
                                 style: TextStyle(
                                   fontFamily: 'PlusJakartaSans',
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: active ? Colors.white : AppColors.slate500,
+                                  fontWeight: FontWeight.w900,
+                                  color: active ? Colors.black : Colors.white,
                                 )),
                           ),
                         ),
@@ -107,9 +108,16 @@ class _TransferPageState extends State<TransferPage> {
         ),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: AppColors.shadowSoft,
+            color: AppColors.white,
+            borderRadius: BorderRadius.zero,
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.primary,
+                offset: Offset(4, 4),
+                blurRadius: 0,
+              ),
+            ],
+            border: Border.all(color: Colors.white, width: 2.5),
           ),
           child: Column(
             children: filtered.asMap().entries.map((e) {
@@ -166,11 +174,18 @@ class _TransferPageState extends State<TransferPage> {
         (b['name'] as String).toLowerCase().contains(_q.toLowerCase())).toList();
 
     return Container(
-      margin: const EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.only(top: 8, bottom: 24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: AppColors.shadowSoft,
+        color: AppColors.white,
+        borderRadius: BorderRadius.zero,
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.primary,
+            offset: Offset(4, 4),
+            blurRadius: 0,
+          ),
+        ],
+        border: Border.all(color: Colors.white, width: 2.5),
       ),
       child: Column(
         children: filtered.asMap().entries.map((e) {

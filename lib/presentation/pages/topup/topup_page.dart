@@ -80,11 +80,11 @@ class _TopUpPageState extends State<TopUpPage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 150),
                             decoration: BoxDecoration(
-                              color: selected ? AppColors.primarySurface : Colors.white,
-                              borderRadius: BorderRadius.circular(16),
+                              color: selected ? AppColors.primary : AppColors.white,
+                              borderRadius: BorderRadius.zero,
                               border: Border.all(
-                                color: selected ? AppColors.primaryLight : AppColors.line,
-                                width: 1.8,
+                                color: selected ? Colors.white : AppColors.line,
+                                width: 2,
                               ),
                             ),
                             child: Center(
@@ -92,8 +92,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                   style: TextStyle(
                                     fontFamily: 'PlusJakartaSans',
                                     fontSize: 16,
-                                    fontWeight: FontWeight.w800,
-                                    color: selected ? AppColors.primary : AppColors.ink,
+                                    fontWeight: FontWeight.w900,
+                                    color: selected ? Colors.black : Colors.white,
                                   )),
                             ),
                           ),
@@ -113,9 +113,16 @@ class _TopUpPageState extends State<TopUpPage> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
-                        boxShadow: AppColors.shadowSoft,
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.zero,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.primary,
+                            offset: Offset(4, 4),
+                            blurRadius: 0,
+                          ),
+                        ],
+                        border: Border.all(color: Colors.white, width: 2.5),
                       ),
                       child: Column(
                         children: _methods.asMap().entries.map((entry) {
@@ -148,7 +155,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                         height: 20,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: selected ? AppColors.primary : Colors.white,
+                                          color: selected ? AppColors.primary : AppColors.white,
                                           border: Border.all(
                                             color: selected ? AppColors.primary : AppColors.line,
                                             width: 2,
