@@ -29,7 +29,6 @@ class MerchantCheckoutPage extends StatefulWidget {
 class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
   final TextEditingController _otpController = TextEditingController();
   bool _otpSent = false;
-  String? _debugOtp;
   bool _isProcessing = false;
   bool _hasCodeError = false;
 
@@ -167,7 +166,6 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
             if (state is OtpSent) {
               setState(() {
                 _otpSent = true;
-                _debugOtp = state.entity.otp; // convenient for testing
               });
             } else if (state is OtpError) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -486,13 +484,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                       ),
                                     ],
                                   ),
-                                  if (_debugOtp != null) ...[
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'Debug OTP: $_debugOtp',
-                                      style: const TextStyle(color: AppColors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                                    ),
-                                  ]
+
                                 ],
                               ],
                             ),
@@ -504,8 +496,10 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                 ),
                 // Pay action bar
                 Container(
-                  color: Colors.white,
-                  border: const Border(top: BorderSide(color: AppColors.line2)),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    border: Border(top: BorderSide(color: AppColors.line2)),
+                  ),
                   padding: EdgeInsets.fromLTRB(16, 12, 16, MediaQuery.of(context).padding.bottom + 16),
                   child: Row(
                     children: [
