@@ -3,13 +3,16 @@
 Proyek ini adalah bagian dari tugas Ujian Akhir Semester (UAS) Genap 2025/2026 untuk mata kuliah Aplikasi Mobile Lanjutan.
 
 ### Identitas Mahasiswa
-* **Nama**: Muhammad Abday Abdul Hafidz
-* **NIM**: 1123150093
-* **Kelas**: TI SE23 P1
-* **Matakuliah**: Aplikasi Mobile Lanjutan (KB1154)
-* **Program Studi**: Teknik Informatika
-* **Dosen Pengampu**: IKetut Gunawan, S.KOM, M.T.I
-* **Institut**: Institut Teknologi dan Bisnis Bina Sarana Global
+
+| Detail Akademik | Informasi |
+| :--- | :--- |
+| **Nama Lengkap** | Muhammad Abday Abdul Hafidz |
+| **NIM** | 1123150093 |
+| **Kelas** | TI SE23 P1 |
+| **Program Studi** | Teknik Informatika |
+| **Mata Kuliah** | Aplikasi Mobile Lanjutan (KB1154) |
+| **Dosen Pengampu** | IKetut Gunawan, S.KOM, M.T.I |
+| **Institut** | Institut Teknologi dan Bisnis Bina Sarana Global |
 
 ---
 
