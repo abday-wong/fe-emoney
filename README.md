@@ -27,48 +27,77 @@ Doran Pay adalah aplikasi dompet digital (E-Wallet) dan payment gateway mandiri 
 ---
 
 ## 2. Arsitektur Aplikasi
-Aplikasi Doran Pay dibangun dengan menerapkan prinsip Clean Architecture untuk memastikan kode mudah dipelihara (maintainable), diuji (testable), dan dikembangkan lebih lanjut. Kode dipisahkan menjadi 3 layer utama:
+Aplikasi Doran Pay dibangun dengan menerapkan prinsip **Clean Architecture** secara ketat untuk menjamin kemandirian kode dari UI, kemudahan pengujian, dan skalabilitas jangka panjang. Kode program dibagi menjadi 4 layer utama:
 
 ```
 lib/
 ├── core/
-│   ├── constants/       # Konfigurasi URL API dan Endpoint
-│   └── theme/           # Konfigurasi tema warna gelap dan merah
+│   ├── constants/       # Konfigurasi URL API dan Endpoint (AppConstants)
+│   ├── error/           # Definisi kegagalan sistem (Failure, ServerFailure, NetworkFailure)
+│   ├── theme/           # Sistem desain warna gelap, merah neon, dan gaya tipografi
+│   └── utils/           # Helper format rupiah dan deep link handler
 ├── data/
-│   ├── datasources/     # Pemanggilan REST API Backend dan Secure Storage
-│   └── models/          # Entitas serialisasi JSON (User, Account, Transaction)
+│   ├── datasources/     # Pemanggilan REST API backend (Dio) dan Secure Storage lokal
+│   ├── models/          # Serialisasi data JSON (UserModel, AccountModel, TransactionModel)
+│   └── repositories/    # Implementasi konkret repository penghubung domain-data
 ├── domain/
-│   ├── usecases/        # Logika bisnis inti yang berdiri sendiri
-│   └── repositories/    # Abstraksi antarmuka data
+│   ├── entities/        # Entitas data bisnis murni (User, Account, Transaction)
+│   ├── repositories/    # Kontrak interface abstraksi repository data
+│   └── usecases/        # Logika bisnis mandiri (Usecase Login, Register, Transfer, dll.)
+├── injection/
+│   └── injection_container.dart # Setup dependency injection service locator (sl) menggunakan GetIt
 ├── presentation/
-│   ├── blocs/           # State Management menggunakan BLoC (Auth, Account, OTP)
-│   ├── pages/           # Layar Antarmuka (Splash, Login, 2FA, Home, Checkout, Success)
-│   └── widgets/         # Komponen UI Reusable (AppButton, AppField, CodeInput)
-└── main.dart            # Entry point aplikasi dan Routing (GoRouter)
+│   ├── blocs/           # Pengelola state aplikasi reaktif (AuthBloc, AccountBloc, OtpBloc, PaymentBloc)
+│   ├── pages/           # Layar antarmuka UI (SplashPage, LoginPage, RegisterPage, HomePage, dll.)
+│   └── widgets/         # Komponen UI modular (AppButton, AppField, CodeInput)
+└── main.dart            # Entry point aplikasi, inisialisasi Firebase Core, dan routing (GoRouter)
 ```
 
-### Penjelasan Layer:
-1. **Presentation Layer (BLoC)**: Mengelola state aplikasi secara reaktif. BLoC memisahkan logika bisnis dari UI. Halaman-halaman hanya bertugas menampilkan data yang diterima dari state BLoC dan mengirimkan event (misalnya meminta OTP atau mengonfirmasi pembayaran).
-2. **Domain Layer**: Merupakan inti aplikasi yang berisi Usecases independen tanpa ketergantungan pada library UI.
-3. **Data Layer**: Mengurus komunikasi data mentah. Menggunakan Dio HTTP Client untuk terhubung ke backend API serta Flutter Secure Storage untuk menyimpan token akses JWT secara terenkripsi di penyimpanan lokal HP.
+### Penjelasan Detail Layer:
+1. **Domain Layer**: Merupakan layer terpenting yang berisi logic bisnis murni. Layer ini sama sekali tidak bergantung pada library eksternal atau database.
+2. **Data Layer**: Mengimplementasikan kontrak repositori dari layer Domain. Layer ini bertanggung jawab mengambil data dari backend API menggunakan **Dio HTTP Client** dan menyimpan token sesi JWT ke **Flutter Secure Storage** secara aman.
+3. **Presentation Layer**: Menggunakan **State Management BLoC (Business Logic Component)** untuk memproses event dari UI, mengolahnya ke usecases, dan mengembalikan state baru ke UI secara reaktif.
 
 ---
 
-## 3. Implementasi Deep Link dan Keamanan 2FA
-Mekanisme ini dirancang untuk memenuhi ketentuan utama integrasi App-to-App yang aman:
+## 3. Alur Aplikasi (Application Flow)
+Alur jalannya aplikasi secara *end-to-end* terbagi menjadi dua alur utama:
 
-### A. Alur Deep Link (Checkout Gateway)
-1. Aplikasi E-Commerce mengirimkan request checkout dengan memicu tautan:
-   `dpay://checkout?amount=xxx&recipient_email=xxx&trx_id=xxx&callback_url=xxx`
-2. Aplikasi Doran Pay akan menangkap tautan tersebut, membaca parameter transaksi, dan menampilkan halaman pembayaran merchant secara otomatis.
-3. Setelah pengguna memasukkan PIN dan memverifikasi kode 2FA, Doran Pay memotong saldo pengguna melalui API backend.
-4. Doran Pay membuka kembali aplikasi E-Commerce menggunakan URL callback yang diterima (misal: `ecommerce://callback?status=success&trx_id=xxx&amount=xxx&recipient_email=xxx`).
+### A. Alur Registrasi Akun dan Aktivasi 2FA
+1. **Registrasi**: User mendaftar melalui `RegisterPage` -> Firebase Auth membuat kredensial -> ID Token Firebase dikirim ke API Backend Go `/v1/auth/verify-token`.
+2. **Sinkronisasi Database**: Backend Go membuat baris data user baru di MySQL local database dengan saldo awal default Rp100.000.000.
+3. **Email OTP (2FA)**: Backend mengirimkan kode OTP 6 digit ke email pengguna via SMTP. Pengguna memasukkan kode di `VerifyEmailPage` untuk mengaktifkan status verifikasi email di Firebase.
+4. **Google Authenticator (TOTP)**: Di halaman Akun, user dapat memilih mengaktifkan 2FA Authenticator. Aplikasi men-generate QR Code berisi *secret key*. User memindai QR Code tersebut menggunakan Google Authenticator untuk mendapatkan token berbasis waktu (TOTP).
 
-### B. Opsi Keamanan Two-Factor Authentication (2FA)
-Aplikasi mendukung 3 metode 2FA dinamis yang dapat dipilih oleh pengguna:
-1. **Email OTP (SMTP)**: Mengirimkan 6 digit kode unik ke alamat email pengguna melalui server SMTP (diimplementasikan pada form registrasi dan checkout).
-2. **Authenticator (TOTP)**: Sinkronisasi kode 6 digit berbasis waktu (Time-based One-Time Password) yang terhubung dengan Google Authenticator atau Authy (diaktifkan melalui scan QR Code di menu akun).
-3. **Push Notification OTP**: Verifikasi instan melalui pengiriman push message ke HP pengguna menggunakan layanan Firebase Cloud Messaging (FCM).
+### B. Alur Integrasi Pembayaran App-to-App (Deep Link Gateway)
+Berikut adalah visualisasi alur transaksi antara aplikasi E-Commerce (Doran Gaming) dan E-Money (Doran Pay):
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant E_Commerce as E-Commerce (Doran Gaming)
+    participant Android_OS as OS Android (System)
+    participant Doran_Pay as E-Money (Doran Pay)
+    participant Go_Backend as Backend API (Go)
+
+    E_Commerce->>Android_OS: Memicu skema emoney://pay?amount=xxx&recipient=xxx&trx_id=xxx&callback=xxx
+    Android_OS->>Doran_Pay: Membuka aplikasi Doran Pay & melempar parameter transaksi
+    Doran_Pay->>Doran_Pay: Mem-parsing parameter & mengarahkan ke MerchantCheckoutPage
+    Doran_Pay->>Go_Backend: Meminta Kode OTP Email (2FA) via SMTP
+    Go_Backend-->>Doran_Pay: Sukses mengirim OTP ke email user
+    Doran_Pay->>Go_Backend: Konfirmasi Bayar + Mengirim PIN & Kode OTP
+    Go_Backend->>Go_Backend: Memotong saldo user & menambah saldo merchant di DB MySQL
+    Go_Backend-->>Doran_Pay: Response pembayaran SUKSES (200 OK)
+    Doran_Pay->>Android_OS: Memicu callback ecommerce://callback?status=success&trx_id=xxx
+    Android_OS->>E_Commerce: Membuka E-Commerce & mengirim status transaksi
+    E_Commerce->>E_Commerce: Mengosongkan keranjang belanja & menampilkan PaymentSuccessPage
+```
+
+1. **Inisiasi Checkout**: Pengguna mengklik "Bayar Sekarang" di E-Commerce. Aplikasi menyusun deep link `emoney://pay?amount=xxx&recipient=xxx&trx_id=xxx&callback=ecommerce://callback` dan memanggil `launchUrl`.
+2. **Penangkapan Link**: OS Android mengidentifikasi skema `emoney` dan membuka Doran Pay. `DeepLinkHandler` menangkap tautan, mengekstrak variabel, dan memicu perpindahan layar ke `MerchantCheckoutPage`.
+3. **Verifikasi Keamanan (2FA)**: Halaman Checkout mendeteksi nominal transaksi dan saldo pengguna. Pengguna meminta kode OTP Email, memasukkan kodenya, lalu menekan tombol "Konfirmasi Bayar".
+4. **Penyelesaian Transaksi & Callback**: Backend Go mendebit saldo pengguna di MySQL dan mencatat riwayat transaksi. Setelah sukses, Doran Pay merakit callback URI `ecommerce://callback?status=success&trx_id=xxx&amount=xxx&recipient_email=xxx` dan meluncurkannya ke OS Android untuk membuka kembali aplikasi E-Commerce.
+5. **Konfirmasi Akhir**: E-Commerce menangkap callback sukses, menghapus produk dari keranjang, menyimpan riwayat transaksi ke secure storage lokal, dan menampilkan halaman sukses (`PaymentSuccessPage`).
 
 ---
 
