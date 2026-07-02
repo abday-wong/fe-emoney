@@ -113,4 +113,4 @@ flutter run
 
 ## Link Video Presentasi
 Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode program pada tautan YouTube berikut:
-* **[Link Video Presentasi UAS Mobile Lanjutan](https://youtube.com/...)**
+* **[Link Video Presentasi UAS Mobile Lanjutan](https://youtu.be/q0XPGJDBPDU?si=7Ln0wXCq8XiQMRFi)**
