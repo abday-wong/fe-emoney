@@ -159,8 +159,11 @@ Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode progr
 
 ## 6. Repositori Proyek Terkait
 Proyek integrasi App-to-App ini terdiri dari 4 modul repositori terpisah yang saling terhubung:
-* **E-Money Frontend (Doran Pay)**: [github.com/abday-wong/fe-emoney](https://github.com/abday-wong/fe-emoney)
-* **E-Money Backend**: [github.com/abday-wong/be-emoney](https://github.com/abday-wong/be-emoney)
-* **E-Commerce Frontend (Doran Gaming)**: [github.com/abday-wong/uts_gaming_console](https://github.com/abday-wong/uts_gaming_console)
-* **E-Commerce Backend**: [github.com/abday-wong/gaming-console-backend](https://github.com/abday-wong/gaming-console-backend)
+
+| Modul Proyek | Jenis Modul | Tautan Repositori GitHub |
+| :--- | :--- | :--- |
+| **Doran Pay (E-Money)** | Frontend (Flutter Mobile App) | [github.com/abday-wong/fe-emoney](https://github.com/abday-wong/fe-emoney) |
+| **E-Money Backend** | Backend (Go REST API) | [github.com/abday-wong/be-emoney](https://github.com/abday-wong/be-emoney) |
+| **Doran Gaming (E-Commerce)** | Frontend (Flutter Mobile App) | [github.com/abday-wong/uts_gaming_console](https://github.com/abday-wong/uts_gaming_console) |
+| **E-Commerce Backend** | Backend (Go REST API) | [github.com/abday-wong/gaming-console-backend](https://github.com/abday-wong/gaming-console-backend) |
 
