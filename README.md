@@ -30,27 +30,35 @@ Doran Pay adalah aplikasi dompet digital (E-Wallet) dan payment gateway mandiri 
 Aplikasi Doran Pay dibangun dengan menerapkan prinsip **Clean Architecture** secara ketat untuk menjamin kemandirian kode dari UI, kemudahan pengujian, dan skalabilitas jangka panjang. Kode program dibagi menjadi 4 layer utama:
 
 ```
-lib/
-├── core/
-│   ├── constants/       # Konfigurasi URL API dan Endpoint (AppConstants)
-│   ├── error/           # Definisi kegagalan sistem (Failure, ServerFailure, NetworkFailure)
-│   ├── theme/           # Sistem desain warna gelap, merah neon, dan gaya tipografi
-│   └── utils/           # Helper format rupiah dan deep link handler
-├── data/
-│   ├── datasources/     # Pemanggilan REST API backend (Dio) dan Secure Storage lokal
-│   ├── models/          # Serialisasi data JSON (UserModel, AccountModel, TransactionModel)
-│   └── repositories/    # Implementasi konkret repository penghubung domain-data
-├── domain/
-│   ├── entities/        # Entitas data bisnis murni (User, Account, Transaction)
-│   ├── repositories/    # Kontrak interface abstraksi repository data
-│   └── usecases/        # Logika bisnis mandiri (Usecase Login, Register, Transfer, dll.)
-├── injection/
-│   └── injection_container.dart # Setup dependency injection service locator (sl) menggunakan GetIt
-├── presentation/
-│   ├── blocs/           # Pengelola state aplikasi reaktif (AuthBloc, AccountBloc, OtpBloc, PaymentBloc)
-│   ├── pages/           # Layar antarmuka UI (SplashPage, LoginPage, RegisterPage, HomePage, dll.)
-│   └── widgets/         # Komponen UI modular (AppButton, AppField, CodeInput)
-└── main.dart            # Entry point aplikasi, inisialisasi Firebase Core, dan routing (GoRouter)
+fe-emoney/ (Root)
+├── android/             # Konfigurasi platform Android native (AndroidManifest.xml, ikon launcher)
+├── assets/              # Aset media aplikasi (gambar logo, ikon kustom)
+├── lib/                 # Kode sumber utama Flutter (Clean Architecture)
+│   ├── core/
+│   │   ├── constants/   # Konfigurasi URL API dan Endpoint (AppConstants)
+│   │   ├── error/       # Definisi kegagalan sistem (Failure, ServerFailure, NetworkFailure)
+│   │   ├── theme/       # Sistem desain warna gelap, merah neon, dan gaya tipografi
+│   │   └── utils/       # Helper format rupiah dan deep link handler
+│   ├── data/
+│   │   ├── datasources/ # Pemanggilan REST API backend (Dio) dan Secure Storage lokal
+│   │   ├── models/      # Serialisasi data JSON (UserModel, AccountModel, TransactionModel)
+│   │   └── repositories/# Implementasi konkret repository penghubung domain-data
+│   ├── domain/
+│   │   ├── entities/    # Entitas data bisnis murni (User, Account, Transaction)
+│   │   ├── repositories/# Kontrak interface abstraksi repository data
+│   │   └── usecases/    # Logika bisnis mandiri (Usecase Login, Register, Transfer, dll.)
+│   ├── injection/
+│   │   └── injection_container.dart # Setup dependency injection service locator (sl) menggunakan GetIt
+│   ├── presentation/
+│   │   ├── blocs/       # Pengelola state aplikasi reaktif (AuthBloc, AccountBloc, OtpBloc, PaymentBloc)
+│   │   ├── pages/       # Layar antarmuka UI (SplashPage, LoginPage, RegisterPage, HomePage, dll.)
+│   │   └── widgets/     # Komponen UI modular (AppButton, AppField, CodeInput)
+│   ├── firebase_options.dart # Konfigurasi client Firebase (tidak dilacak oleh Git)
+│   └── main.dart        # Entry point aplikasi, inisialisasi Firebase Core, dan routing (GoRouter)
+├── test/                # Unit testing dan widget testing untuk validasi kode program
+├── firebase.json        # Berkas konfigurasi deploy/hosting layanan Firebase
+├── pubspec.yaml         # Definisi dependensi package luar dan konfigurasi aset Flutter
+└── README.md            # Dokumentasi utama proyek
 ```
 
 ### Penjelasan Detail Layer:
