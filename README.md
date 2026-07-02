@@ -154,7 +154,7 @@ flutter run
 ## Link Video Presentasi
 Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode program pada tautan YouTube berikut:
 
-[![Tonton Video Presentasi UAS](https://img.youtube.com/vi/q0XPGJDBPDU/maxresdefault.jpg)](https://youtu.be/q0XPGJDBPDU)
+[![Tonton Video Presentasi UAS](https://img.youtube.com/vi/q0XPGJDBPDU/hqdefault.jpg)](https://youtu.be/q0XPGJDBPDU)
 
 *(Klik gambar di atas untuk langsung membuka dan memutar video presentasi di YouTube)*
 
