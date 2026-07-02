@@ -151,3 +151,13 @@ flutter run
 ## Link Video Presentasi
 Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode program pada tautan YouTube berikut:
 * **[Link Video Presentasi UAS Mobile Lanjutan](https://youtu.be/q0XPGJDBPDU?si=7Ln0wXCq8XiQMRFi)**
+
+---
+
+## 6. Repositori Proyek Terkait
+Proyek integrasi App-to-App ini terdiri dari 4 modul repositori terpisah yang saling terhubung:
+* **E-Money Frontend (Doran Pay)**: [github.com/abday-wong/fe-emoney](https://github.com/abday-wong/fe-emoney)
+* **E-Money Backend**: [github.com/abday-wong/be-emoney](https://github.com/abday-wong/be-emoney)
+* **E-Commerce Frontend (Doran Gaming)**: [github.com/abday-wong/uts_gaming_console](https://github.com/abday-wong/uts_gaming_console)
+* **E-Commerce Backend**: [github.com/abday-wong/gaming-console-backend](https://github.com/abday-wong/gaming-console-backend)
+
