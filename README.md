@@ -156,7 +156,9 @@ Silakan akses video demonstrasi alur transaksi lengkap dan penjelasan kode progr
 
 [![Tonton Video Presentasi UAS](https://img.youtube.com/vi/q0XPGJDBPDU/hqdefault.jpg)](https://youtu.be/q0XPGJDBPDU)
 
-*(Klik gambar di atas untuk langsung membuka dan memutar video presentasi di YouTube)*
+**Tautan Video**: [https://youtu.be/q0XPGJDBPDU](https://youtu.be/q0XPGJDBPDU)
+
+***(Pencet gambar di atas atau klik tautan video untuk menonton videonya)***
 
 ---
 
