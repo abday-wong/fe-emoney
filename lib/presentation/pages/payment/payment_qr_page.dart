@@ -37,14 +37,29 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
       final codeValue = barcodes.first.rawValue;
       if (codeValue != null) {
         debugPrint('[QR] Scanned Code: $codeValue');
-        if (codeValue.startsWith('emoney://pay')) {
+        
+        String actualPayload = codeValue;
+        if (codeValue.contains('data=')) {
+          try {
+            final decodedUri = Uri.parse(codeValue);
+            final dataParam = decodedUri.queryParameters['data'];
+            if (dataParam != null && dataParam.toLowerCase().contains('emoney://pay')) {
+              actualPayload = dataParam;
+            }
+          } catch (_) {}
+        }
+
+        if (actualPayload.toLowerCase().contains('emoney://pay')) {
+          final startIndex = actualPayload.toLowerCase().indexOf('emoney://pay');
+          actualPayload = actualPayload.substring(startIndex);
+          
           setState(() {
             _detected = true;
           });
           _controller.stop();
           
           try {
-            final uri = Uri.parse(codeValue);
+            final uri = Uri.parse(actualPayload);
             final amountStr = uri.queryParameters['amount'];
             final recipient = uri.queryParameters['recipient'];
             final trxId = uri.queryParameters['trx_id'];
@@ -69,6 +84,14 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
           }
         } else {
           // Fallback ke mock sheet untuk QR code umum
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('QR Code tidak dikenal: "${codeValue.length > 30 ? codeValue.substring(0, 30) + '...' : codeValue}". Menggunakan simulasi Kantin.'),
+                duration: const Duration(seconds: 3),
+              ),
+            );
+          }
           setState(() {
             _detected = true;
           });
