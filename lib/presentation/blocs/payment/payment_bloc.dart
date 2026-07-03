@@ -41,6 +41,7 @@ abstract class PaymentState extends Equatable {
 }
 
 class PaymentInitial extends PaymentState {}
+
 class PaymentLoading extends PaymentState {}
 
 class PaymentTopupSuccess extends PaymentState {
@@ -93,7 +94,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     on<PaymentReset>((_, emit) => emit(PaymentInitial()));
   }
 
-  Future<void> _onTopup(PaymentTopupRequested event, Emitter<PaymentState> emit) async {
+  Future<void> _onTopup(
+      PaymentTopupRequested event, Emitter<PaymentState> emit) async {
     emit(PaymentLoading());
     try {
       final result = await _topup(event.amount);
@@ -105,7 +107,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     }
   }
 
-  Future<void> _onTransfer(PaymentTransferRequested event, Emitter<PaymentState> emit) async {
+  Future<void> _onTransfer(
+      PaymentTransferRequested event, Emitter<PaymentState> emit) async {
     emit(PaymentLoading());
     try {
       final result = await _transfer(

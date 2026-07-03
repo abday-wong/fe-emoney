@@ -37,5 +37,6 @@ class TransferResultEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [transactionId, amount, description, balanceBefore, balanceAfter];
+  List<Object?> get props =>
+      [transactionId, amount, description, balanceBefore, balanceAfter];
 }

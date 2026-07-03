@@ -6,7 +6,8 @@ class AppLogo extends StatelessWidget {
   final bool light;
   final bool withText;
 
-  const AppLogo({super.key, this.size = 56, this.light = false, this.withText = false});
+  const AppLogo(
+      {super.key, this.size = 56, this.light = false, this.withText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,8 @@ class AppLogo extends StatelessWidget {
                 fontFamily: fontFamily,
                 fontSize: size * 0.205,
                 fontWeight: FontWeight.w900,
-                color: light ? Colors.white.withOpacity(0.85) : AppColors.primary,
+                color:
+                    light ? Colors.white.withOpacity(0.85) : AppColors.primary,
                 letterSpacing: 1.5,
                 height: 1.05,
               ),

@@ -49,19 +49,19 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
     context.read<OtpBloc>().add(OtpSendEmail());
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('OTP dikirim ke email kamu', style: TextStyle(fontWeight: FontWeight.w700)),
+        content: Text('OTP dikirim ke email kamu',
+            style: TextStyle(fontWeight: FontWeight.w700)),
         backgroundColor: AppColors.primary,
       ),
     );
   }
 
-  void _processPaymentRedirect(double amount, String recipient, String trxId, String callback) async {
-    final callbackUri = Uri.parse(
-      '$callback?status=success'
-      '&trx_id=$trxId'
-      '&amount=${amount.toInt()}'
-      '&recipient_email=${Uri.encodeComponent(recipient)}'
-    );
+  void _processPaymentRedirect(
+      double amount, String recipient, String trxId, String callback) async {
+    final callbackUri = Uri.parse('$callback?status=success'
+        '&trx_id=$trxId'
+        '&amount=${amount.toInt()}'
+        '&recipient_email=${Uri.encodeComponent(recipient)}');
 
     debugPrint('[Checkout] Success callback redirect: $callbackUri');
     // Clear deep link state
@@ -86,12 +86,11 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
     }
   }
 
-  void _processPaymentCancelRedirect(String trxId, String callback, String errorMsg) async {
-    final callbackUri = Uri.parse(
-      '$callback?status=failed'
-      '&trx_id=$trxId'
-      '&error=${Uri.encodeComponent(errorMsg)}'
-    );
+  void _processPaymentCancelRedirect(
+      String trxId, String callback, String errorMsg) async {
+    final callbackUri = Uri.parse('$callback?status=failed'
+        '&trx_id=$trxId'
+        '&error=${Uri.encodeComponent(errorMsg)}');
 
     debugPrint('[Checkout] Failure callback redirect: $callbackUri');
     // Clear deep link state
@@ -124,7 +123,11 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const FeatureIcon(icon: Icons.storefront_outlined, tone: 'orange', size: 80, iconSize: 40),
+                const FeatureIcon(
+                    icon: Icons.storefront_outlined,
+                    tone: 'orange',
+                    size: 80,
+                    iconSize: 40),
                 const SizedBox(height: 20),
                 const Text(
                   'Tidak Ada Pembayaran Aktif',
@@ -163,7 +166,9 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
               });
             } else if (state is OtpError) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message), backgroundColor: AppColors.red),
+                SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: AppColors.red),
               );
             }
           },
@@ -176,9 +181,12 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
               setState(() => _isProcessing = false);
               context.read<AccountBloc>().add(AccountLoadRequested());
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Pembayaran Berhasil!'), backgroundColor: AppColors.green),
+                const SnackBar(
+                    content: Text('Pembayaran Berhasil!'),
+                    backgroundColor: AppColors.green),
               );
-              _processPaymentRedirect(trx.amount, trx.recipient, trx.trxId, trx.callback);
+              _processPaymentRedirect(
+                  trx.amount, trx.recipient, trx.trxId, trx.callback);
             } else if (state is PaymentInvalidOtp) {
               setState(() {
                 _isProcessing = false;
@@ -186,12 +194,16 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                 _otpController.clear();
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message), backgroundColor: AppColors.red),
+                SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: AppColors.red),
               );
             } else if (state is PaymentError) {
               setState(() => _isProcessing = false);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message), backgroundColor: AppColors.red),
+                SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: AppColors.red),
               );
             }
           },
@@ -207,7 +219,8 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
             body: BlocBuilder<AccountBloc, AccountState>(
               builder: (context, accountState) {
                 double balance = 0.0;
-                bool isLoadingAccount = accountState is AccountLoading || accountState is AccountInitial;
+                bool isLoadingAccount = accountState is AccountLoading ||
+                    accountState is AccountInitial;
 
                 if (accountState is AccountLoaded) {
                   balance = accountState.account.balance;
@@ -220,13 +233,16 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                     // TokoBelanja header
                     Container(
                       color: _orange,
-                      padding: EdgeInsets.fromLTRB(16, MediaQuery.of(context).padding.top + 6, 16, 14),
+                      padding: EdgeInsets.fromLTRB(
+                          16, MediaQuery.of(context).padding.top + 6, 16, 14),
                       child: Row(
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
+                            icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                                color: Colors.white, size: 20),
                             onPressed: () {
-                              _processPaymentCancelRedirect(trx.trxId, trx.callback, 'Payment cancelled by user.');
+                              _processPaymentCancelRedirect(trx.trxId,
+                                  trx.callback, 'Payment cancelled by user.');
                             },
                           ),
                           const Expanded(
@@ -241,14 +257,16 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.storefront_outlined, size: 14, color: Colors.white),
+                                const Icon(Icons.storefront_outlined,
+                                    size: 14, color: Colors.white),
                                 const SizedBox(width: 6),
                                 Text(
                                   trx.recipient.split('@').first.toUpperCase(),
@@ -301,14 +319,20 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                         height: 46,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFFFFF1E9),
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
-                                        child: const Center(child: Icon(Icons.shopping_bag_outlined, size: 22, color: _orange)),
+                                        child: const Center(
+                                            child: Icon(
+                                                Icons.shopping_bag_outlined,
+                                                size: 22,
+                                                color: _orange)),
                                       ),
                                       const SizedBox(width: 12),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             const Text(
                                               'E-Commerce Payment',
@@ -320,18 +344,25 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                               ),
                                             ),
                                             Text('Penerima: ${trx.recipient}',
-                                                style: const TextStyle(fontSize: 12.5, color: AppColors.slate400)),
+                                                style: const TextStyle(
+                                                    fontSize: 12.5,
+                                                    color: AppColors.slate400)),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const Divider(height: 24, color: AppColors.line2),
+                                  const Divider(
+                                      height: 24, color: AppColors.line2),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text('Total Nominal',
-                                          style: TextStyle(fontSize: 14, color: AppColors.slate500, fontFamily: 'PlusJakartaSans')),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.slate500,
+                                              fontFamily: 'PlusJakartaSans')),
                                       Text(
                                         CurrencyFormatter.format(trx.amount),
                                         style: const TextStyle(
@@ -362,22 +393,33 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text('Doran Pay',
-                                            style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.ink)),
+                                            style: TextStyle(
+                                                fontFamily: 'PlusJakartaSans',
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.ink)),
                                         isLoadingAccount
                                             ? const SizedBox(
                                                 height: 16,
                                                 width: 16,
-                                                child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        strokeWidth: 2,
+                                                        color:
+                                                            AppColors.primary),
                                               )
                                             : Text(
                                                 'Saldo: ${CurrencyFormatter.format(balance)}',
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w700,
-                                                  color: isBalanceSufficient ? AppColors.green : AppColors.red,
+                                                  color: isBalanceSufficient
+                                                      ? AppColors.green
+                                                      : AppColors.red,
                                                 ),
                                               ),
                                       ],
@@ -394,16 +436,21 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                 decoration: BoxDecoration(
                                   color: Colors.red.withOpacity(0.08),
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.red.withOpacity(0.3)),
+                                  border: Border.all(
+                                      color: AppColors.red.withOpacity(0.3)),
                                 ),
                                 child: const Row(
                                   children: [
-                                    Icon(Icons.error_outline, color: AppColors.red, size: 20),
+                                    Icon(Icons.error_outline,
+                                        color: AppColors.red, size: 20),
                                     SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
                                         'Saldo Anda tidak mencukupi untuk melakukan pembayaran ini.',
-                                        style: TextStyle(color: AppColors.red, fontWeight: FontWeight.w600, fontSize: 13),
+                                        style: TextStyle(
+                                            color: AppColors.red,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 13),
                                       ),
                                     ),
                                   ],
@@ -440,7 +487,10 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                     if (isTotp) ...[
                                       const Text(
                                         'Masukkan Kode Google Authenticator:',
-                                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5, color: AppColors.ink),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 13.5,
+                                            color: AppColors.ink),
                                       ),
                                       const SizedBox(height: 12),
                                       CodeInput(
@@ -454,7 +504,10 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                     ] else ...[
                                       const Text(
                                         'Masukkan Kode OTP Email:',
-                                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5, color: AppColors.ink),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 13.5,
+                                            color: AppColors.ink),
                                       ),
                                       const SizedBox(height: 12),
                                       CodeInput(
@@ -469,7 +522,9 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                                       SizedBox(
                                         width: double.infinity,
                                         child: AppButton(
-                                          label: _otpSent ? 'Kirim Ulang Kode OTP' : 'Minta Kode OTP Email',
+                                          label: _otpSent
+                                              ? 'Kirim Ulang Kode OTP'
+                                              : 'Minta Kode OTP Email',
                                           size: AppButtonSize.md,
                                           onPressed: _sendEmailOtp,
                                         ),
@@ -489,7 +544,8 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                         color: AppColors.white,
                         border: Border(top: BorderSide(color: AppColors.line2)),
                       ),
-                      padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 10),
+                      padding: EdgeInsets.fromLTRB(16, 8, 16,
+                          MediaQuery.of(context).padding.bottom + 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -497,14 +553,22 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                               onPressed: _isProcessing
                                   ? null
                                   : () {
-                                      _processPaymentCancelRedirect(trx.trxId, trx.callback, 'Payment declined by user.');
+                                      _processPaymentCancelRedirect(
+                                          trx.trxId,
+                                          trx.callback,
+                                          'Payment declined by user.');
                                     },
                               style: OutlinedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 12),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
                                 side: const BorderSide(color: AppColors.line),
                               ),
-                              child: const Text('Batalkan', style: TextStyle(color: AppColors.ink, fontWeight: FontWeight.w700)),
+                              child: const Text('Batalkan',
+                                  style: TextStyle(
+                                      color: AppColors.ink,
+                                      fontWeight: FontWeight.w700)),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -513,13 +577,20 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
                               label: 'Konfirmasi Bayar',
                               size: AppButtonSize.md,
                               isLoading: _isProcessing,
-                              onPressed: (isBalanceSufficient && _otpController.text.length == 6 && !_isProcessing)
+                              onPressed: (isBalanceSufficient &&
+                                      _otpController.text.length == 6 &&
+                                      !_isProcessing)
                                   ? () {
-                                      context.read<PaymentBloc>().add(PaymentTransferRequested(
+                                      context
+                                          .read<PaymentBloc>()
+                                          .add(PaymentTransferRequested(
                                             amount: trx.amount,
-                                            description: 'Pembayaran E-Commerce #${trx.trxId}',
+                                            description:
+                                                'Pembayaran E-Commerce #${trx.trxId}',
                                             otpCode: _otpController.text,
-                                            otpType: isTotp ? AppConstants.otpTypeTotp : AppConstants.otpTypeEmail,
+                                            otpType: isTotp
+                                                ? AppConstants.otpTypeTotp
+                                                : AppConstants.otpTypeEmail,
                                           ));
                                     }
                                   : null,

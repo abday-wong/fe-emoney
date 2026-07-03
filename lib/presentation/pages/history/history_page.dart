@@ -28,7 +28,8 @@ class _HistoryPageState extends State<HistoryPage> {
         children: [
           Container(
             color: AppColors.white,
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).padding.top + 12, 20, 0),
+            padding: EdgeInsets.fromLTRB(
+                20, MediaQuery.of(context).padding.top + 12, 20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,16 +43,23 @@ class _HistoryPageState extends State<HistoryPage> {
                     )),
                 const SizedBox(height: 16),
                 Row(
-                  children: [['all', 'Semua'], ['out', 'Pengeluaran'], ['in', 'Pemasukan']]
+                  children: [
+                    ['all', 'Semua'],
+                    ['out', 'Pengeluaran'],
+                    ['in', 'Pemasukan']
+                  ]
                       .map((t) => Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: GestureDetector(
                               onTap: () => setState(() => _tab = t[0]),
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 150),
-                                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: _tab == t[0] ? AppColors.primary : AppColors.bg,
+                                  color: _tab == t[0]
+                                      ? AppColors.primary
+                                      : AppColors.bg,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(t[1],
@@ -59,7 +67,9 @@ class _HistoryPageState extends State<HistoryPage> {
                                       fontFamily: 'PlusJakartaSans',
                                       fontSize: 13,
                                       fontWeight: FontWeight.w700,
-                                      color: _tab == t[0] ? Colors.white : AppColors.slate500,
+                                      color: _tab == t[0]
+                                          ? Colors.white
+                                          : AppColors.slate500,
                                     )),
                               ),
                             ),
@@ -75,20 +85,28 @@ class _HistoryPageState extends State<HistoryPage> {
             child: BlocBuilder<AccountBloc, AccountState>(
               builder: (context, state) {
                 if (state is AccountLoading) {
-                  return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+                  return const Center(
+                      child:
+                          CircularProgressIndicator(color: AppColors.primary));
                 }
                 if (state is AccountError) {
-                  return Center(child: Text(state.message, style: const TextStyle(color: AppColors.slate400)));
+                  return Center(
+                      child: Text(state.message,
+                          style: const TextStyle(color: AppColors.slate400)));
                 }
                 if (state is AccountLoaded) {
                   List<TransactionEntity> txns = state.transactions;
-                  if (_tab == 'in') txns = txns.where((t) => t.isCredit).toList();
-                  if (_tab == 'out') txns = txns.where((t) => !t.isCredit).toList();
+                  if (_tab == 'in')
+                    txns = txns.where((t) => t.isCredit).toList();
+                  if (_tab == 'out')
+                    txns = txns.where((t) => !t.isCredit).toList();
 
                   if (txns.isEmpty) {
                     return const Center(
                       child: Text('Tidak ada transaksi',
-                          style: TextStyle(fontFamily: 'PlusJakartaSans', color: AppColors.slate400)),
+                          style: TextStyle(
+                              fontFamily: 'PlusJakartaSans',
+                              color: AppColors.slate400)),
                     );
                   }
                   return ListView.separated(
@@ -120,7 +138,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                     children: txns
                                         .asMap()
                                         .entries
-                                        .map((e) => TransactionRow(txn: e.value, divider: e.key > 0))
+                                        .map((e) => TransactionRow(
+                                            txn: e.value, divider: e.key > 0))
                                         .toList(),
                                   ),
                                 ),

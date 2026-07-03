@@ -33,7 +33,8 @@ class OtpRepositoryImpl implements OtpRepository {
   }
 
   @override
-  Future<void> confirmOtp({required String code, required String otpType}) async {
+  Future<void> confirmOtp(
+      {required String code, required String otpType}) async {
     try {
       await _remote.confirmOtp(code: code, otpType: otpType);
       await _authRepo.setAuthVerified(true);

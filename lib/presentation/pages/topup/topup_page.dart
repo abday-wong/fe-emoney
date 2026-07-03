@@ -20,11 +20,35 @@ class _TopUpPageState extends State<TopUpPage> {
   String _method = 'bca';
   late final TextEditingController _amountController;
 
-  final _chips = [50000.0, 100000.0, 200000.0, 500000.0, 1000000.0, 2000000.0, 5000000.0, 10000000.0];
+  final _chips = [
+    50000.0,
+    100000.0,
+    200000.0,
+    500000.0,
+    1000000.0,
+    2000000.0,
+    5000000.0,
+    10000000.0
+  ];
   final _methods = [
-    {'id': 'bca', 'name': 'BCA Virtual Account', 'tone': 'blue', 'icon': Icons.account_balance_outlined},
-    {'id': 'card', 'name': 'Kartu Debit/Kredit', 'tone': 'violet', 'icon': Icons.credit_card_outlined},
-    {'id': 'alfa', 'name': 'Alfamart / Indomaret', 'tone': 'red', 'icon': Icons.storefront_outlined},
+    {
+      'id': 'bca',
+      'name': 'BCA Virtual Account',
+      'tone': 'blue',
+      'icon': Icons.account_balance_outlined
+    },
+    {
+      'id': 'card',
+      'name': 'Kartu Debit/Kredit',
+      'tone': 'violet',
+      'icon': Icons.credit_card_outlined
+    },
+    {
+      'id': 'alfa',
+      'name': 'Alfamart / Indomaret',
+      'tone': 'red',
+      'icon': Icons.storefront_outlined
+    },
   ];
 
   @override
@@ -55,13 +79,15 @@ class _TopUpPageState extends State<TopUpPage> {
           });
         } else if (state is PaymentError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: AppColors.red),
+            SnackBar(
+                content: Text(state.message), backgroundColor: AppColors.red),
           );
         }
       },
       child: Scaffold(
         backgroundColor: AppColors.bg,
-        appBar: AppTopBar(title: 'Isi Saldo', onBack: () => context.go('/home')),
+        appBar:
+            AppTopBar(title: 'Isi Saldo', onBack: () => context.go('/home')),
         body: Column(
           children: [
             Expanded(
@@ -85,7 +111,8 @@ class _TopUpPageState extends State<TopUpPage> {
                         color: AppColors.white,
                         border: Border.all(color: AppColors.line, width: 2),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       child: Row(
                         children: [
                           const Text(
@@ -101,7 +128,9 @@ class _TopUpPageState extends State<TopUpPage> {
                             child: TextField(
                               controller: _amountController,
                               keyboardType: TextInputType.number,
-                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               style: const TextStyle(
                                 fontFamily: 'PlusJakartaSans',
                                 fontSize: 20,
@@ -152,7 +181,9 @@ class _TopUpPageState extends State<TopUpPage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 150),
                             decoration: BoxDecoration(
-                              color: selected ? AppColors.primary : AppColors.white,
+                              color: selected
+                                  ? AppColors.primary
+                                  : AppColors.white,
                               borderRadius: BorderRadius.zero,
                               border: Border.all(
                                 color: selected ? Colors.white : AppColors.line,
@@ -165,7 +196,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                     fontFamily: 'PlusJakartaSans',
                                     fontSize: 16,
                                     fontWeight: FontWeight.w900,
-                                    color: selected ? Colors.black : Colors.white,
+                                    color:
+                                        selected ? Colors.black : Colors.white,
                                   )),
                             ),
                           ),
@@ -203,14 +235,24 @@ class _TopUpPageState extends State<TopUpPage> {
                           final selected = _method == m['id'];
                           return Column(
                             children: [
-                              if (i > 0) const Divider(height: 1, indent: 16, color: AppColors.line2),
+                              if (i > 0)
+                                const Divider(
+                                    height: 1,
+                                    indent: 16,
+                                    color: AppColors.line2),
                               GestureDetector(
-                                onTap: () => setState(() => _method = m['id'] as String),
+                                onTap: () =>
+                                    setState(() => _method = m['id'] as String),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 14),
                                   child: Row(
                                     children: [
-                                      FeatureIcon(icon: m['icon'] as IconData, tone: m['tone'] as String, size: 42, iconSize: 20),
+                                      FeatureIcon(
+                                          icon: m['icon'] as IconData,
+                                          tone: m['tone'] as String,
+                                          size: 42,
+                                          iconSize: 20),
                                       const SizedBox(width: 13),
                                       Expanded(
                                         child: Text(m['name'] as String,
@@ -222,14 +264,19 @@ class _TopUpPageState extends State<TopUpPage> {
                                             )),
                                       ),
                                       AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration:
+                                            const Duration(milliseconds: 150),
                                         width: 20,
                                         height: 20,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: selected ? AppColors.primary : AppColors.white,
+                                          color: selected
+                                              ? AppColors.primary
+                                              : AppColors.white,
                                           border: Border.all(
-                                            color: selected ? AppColors.primary : AppColors.line,
+                                            color: selected
+                                                ? AppColors.primary
+                                                : AppColors.line,
                                             width: 2,
                                           ),
                                         ),
@@ -238,7 +285,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                                 child: Container(
                                                   width: 8,
                                                   height: 8,
-                                                  decoration: const BoxDecoration(
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: Colors.white,
                                                   ),
@@ -268,7 +316,9 @@ class _TopUpPageState extends State<TopUpPage> {
                   isLoading: state is PaymentLoading,
                   onPressed: _amount > 0
                       ? () {
-                          context.read<PaymentBloc>().add(PaymentTopupRequested(_amount));
+                          context
+                              .read<PaymentBloc>()
+                              .add(PaymentTopupRequested(_amount));
                         }
                       : null,
                 ),

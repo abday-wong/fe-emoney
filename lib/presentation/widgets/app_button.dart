@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 
-enum AppButtonVariant { primary, dark, soft, ghost, outline, outlineWhite, white, danger, success }
+enum AppButtonVariant {
+  primary,
+  dark,
+  soft,
+  ghost,
+  outline,
+  outlineWhite,
+  white,
+  danger,
+  success
+}
+
 enum AppButtonSize { lg, md, sm }
 
 class AppButton extends StatelessWidget {
@@ -48,7 +59,9 @@ class AppButton extends StatelessWidget {
             width: fullWidth ? double.infinity : null,
             padding: EdgeInsets.symmetric(horizontal: px),
             decoration: BoxDecoration(
-              gradient: variant == AppButtonVariant.primary ? AppColors.primaryGradient : null,
+              gradient: variant == AppButtonVariant.primary
+                  ? AppColors.primaryGradient
+                  : null,
               color: variant != AppButtonVariant.primary ? bg : null,
               borderRadius: BorderRadius.zero,
               boxShadow: const [
@@ -109,8 +122,18 @@ class AppButton extends StatelessWidget {
           null,
         ),
       AppButtonVariant.dark => (AppColors.ink, Colors.white, [], null),
-      AppButtonVariant.soft => (AppColors.primarySurface, AppColors.primary, [], null),
-      AppButtonVariant.ghost => (Colors.transparent, AppColors.slate600, [], null),
+      AppButtonVariant.soft => (
+          AppColors.primarySurface,
+          AppColors.primary,
+          [],
+          null
+        ),
+      AppButtonVariant.ghost => (
+          Colors.transparent,
+          AppColors.slate600,
+          [],
+          null
+        ),
       AppButtonVariant.outline => (
           Colors.white,
           AppColors.ink,
@@ -126,7 +149,12 @@ class AppButton extends StatelessWidget {
       AppButtonVariant.white => (
           Colors.white,
           AppColors.primary,
-          [BoxShadow(color: Colors.black.withValues(alpha: 0.14), blurRadius: 20, offset: const Offset(0, 8))],
+          [
+            BoxShadow(
+                color: Colors.black.withValues(alpha: 0.14),
+                blurRadius: 20,
+                offset: const Offset(0, 8))
+          ],
           null,
         ),
       AppButtonVariant.danger => (AppColors.red, Colors.white, [], null),

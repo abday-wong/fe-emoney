@@ -91,7 +91,9 @@ class _AppFieldState extends State<AppField> {
             boxShadow: _focused
                 ? [
                     BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.1), blurRadius: 0, spreadRadius: 4)
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        blurRadius: 0,
+                        spreadRadius: 4)
                   ]
                 : [],
           ),

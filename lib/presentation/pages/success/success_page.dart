@@ -81,7 +81,8 @@ class _SuccessPageState extends State<SuccessPage> {
                       const SizedBox(height: 24),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(18),
@@ -92,11 +93,15 @@ class _SuccessPageState extends State<SuccessPage> {
                             final l = e.value;
                             return Column(
                               children: [
-                                if (i > 0) const Divider(height: 1, color: AppColors.line),
+                                if (i > 0)
+                                  const Divider(
+                                      height: 1, color: AppColors.line),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 11),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 11),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(l[0],
                                           style: const TextStyle(
@@ -138,7 +143,8 @@ class _SuccessPageState extends State<SuccessPage> {
                   AppButton(
                     label: 'Bagikan bukti transaksi',
                     variant: AppButtonVariant.soft,
-                    icon: const Icon(Icons.copy_rounded, size: 18, color: AppColors.primary),
+                    icon: const Icon(Icons.copy_rounded,
+                        size: 18, color: AppColors.primary),
                     onPressed: () {},
                   ),
                 ],

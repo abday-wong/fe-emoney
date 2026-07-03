@@ -24,5 +24,14 @@ class UserEntity extends Equatable {
   String get firstName => name.split(' ').first;
 
   @override
-  List<Object?> get props => [id, firebaseUid, email, name, role, emailVerified, totpEnabled, twoFaMethod];
+  List<Object?> get props => [
+        id,
+        firebaseUid,
+        email,
+        name,
+        role,
+        emailVerified,
+        totpEnabled,
+        twoFaMethod
+      ];
 }

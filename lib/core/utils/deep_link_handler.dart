@@ -49,7 +49,9 @@ class DeepLinkHandler {
   static void _handleIncomingUri(Uri uri, Function(PendingTrx) callback) {
     debugPrint('Received Deep Link Uri: $uri');
     bool isPaymentLink = (uri.scheme == 'emoney' && uri.host == 'pay');
-    if (kIsWeb && uri.queryParameters.containsKey('amount') && uri.queryParameters.containsKey('recipient')) {
+    if (kIsWeb &&
+        uri.queryParameters.containsKey('amount') &&
+        uri.queryParameters.containsKey('recipient')) {
       isPaymentLink = true;
     }
 
@@ -59,7 +61,10 @@ class DeepLinkHandler {
       final trxId = uri.queryParameters['trx_id'];
       final callbackUrl = uri.queryParameters['callback'];
 
-      if (amountStr != null && recipient != null && trxId != null && callbackUrl != null) {
+      if (amountStr != null &&
+          recipient != null &&
+          trxId != null &&
+          callbackUrl != null) {
         final amount = double.tryParse(amountStr) ?? 0.0;
         final trx = PendingTrx(
           amount: amount,

@@ -18,7 +18,8 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource {
 
   @override
   Future<({double balance, double amount})> topup(double amount) async {
-    final response = await _client.post(ApiEndpoints.topup, data: {'amount': amount});
+    final response =
+        await _client.post(ApiEndpoints.topup, data: {'amount': amount});
     final data = response['data'] as Map<String, dynamic>;
     return (
       balance: (data['balance'] as num).toDouble(),
@@ -46,7 +47,8 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource {
       description: data['description'] as String? ?? '',
       balanceBefore: (data['balance_before'] as num).toDouble(),
       balanceAfter: (data['balance_after'] as num).toDouble(),
-      createdAt: DateTime.tryParse(data['created_at'] as String? ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(data['created_at'] as String? ?? '') ??
+          DateTime.now(),
     );
   }
 }

@@ -11,7 +11,8 @@ class SuccessCheck extends StatefulWidget {
   State<SuccessCheck> createState() => _SuccessCheckState();
 }
 
-class _SuccessCheckState extends State<SuccessCheck> with SingleTickerProviderStateMixin {
+class _SuccessCheckState extends State<SuccessCheck>
+    with SingleTickerProviderStateMixin {
   late AnimationController _ctrl;
   late Animation<double> _scale;
   late Animation<double> _checkDraw;
@@ -19,9 +20,12 @@ class _SuccessCheckState extends State<SuccessCheck> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
-    _scale = CurvedAnimation(parent: _ctrl, curve: const Interval(0, 0.5, curve: Curves.elasticOut));
-    _checkDraw = CurvedAnimation(parent: _ctrl, curve: const Interval(0.4, 0.9, curve: Curves.easeOut));
+    _ctrl = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 700));
+    _scale = CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0, 0.5, curve: Curves.elasticOut));
+    _checkDraw = CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0.4, 0.9, curve: Curves.easeOut));
     _ctrl.forward();
   }
 
@@ -34,7 +38,9 @@ class _SuccessCheckState extends State<SuccessCheck> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     final color = widget.tone == 'green' ? AppColors.green : AppColors.primary;
-    final bgColor = widget.tone == 'green' ? AppColors.greenSurface : AppColors.primarySurface;
+    final bgColor = widget.tone == 'green'
+        ? AppColors.greenSurface
+        : AppColors.primarySurface;
 
     return ScaleTransition(
       scale: _scale,

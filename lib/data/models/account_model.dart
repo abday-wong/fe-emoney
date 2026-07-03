@@ -13,7 +13,8 @@ class AccountModel extends AccountEntity {
       id: (json['id'] as num).toInt(),
       userId: (json['user_id'] as num).toInt(),
       balance: (json['balance'] as num).toDouble(),
-      createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ??
+          DateTime.now(),
     );
   }
 }

@@ -24,7 +24,8 @@ class AppAvatar extends StatelessWidget {
       const Color(0xFFE5484D),
       const Color(0xFF0EA5E9),
     ];
-    final auto = palette[(name.isNotEmpty ? name.codeUnitAt(0) : 0) % palette.length];
+    final auto =
+        palette[(name.isNotEmpty ? name.codeUnitAt(0) : 0) % palette.length];
     final initials = name
         .split(' ')
         .take(2)

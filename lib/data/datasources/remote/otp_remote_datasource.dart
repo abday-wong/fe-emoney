@@ -35,7 +35,8 @@ class OtpRemoteDatasourceImpl implements OtpRemoteDatasource {
   }
 
   @override
-  Future<void> confirmOtp({required String code, required String otpType}) async {
+  Future<void> confirmOtp(
+      {required String code, required String otpType}) async {
     await _client.post(ApiEndpoints.confirmOtp, data: {
       'code': code,
       'otp_type': otpType,
@@ -56,7 +57,8 @@ class OtpRemoteDatasourceImpl implements OtpRemoteDatasource {
 
   @override
   Future<bool> verifyTotp(String code) async {
-    final response = await _client.post(ApiEndpoints.totpVerify, data: {'code': code});
+    final response =
+        await _client.post(ApiEndpoints.totpVerify, data: {'code': code});
     final data = response['data'] as Map<String, dynamic>;
     return data['totp_enabled'] as bool? ?? false;
   }

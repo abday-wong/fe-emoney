@@ -72,7 +72,8 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
               alignment: Alignment.topLeft,
               child: IconButton(
                 icon: const Icon(DkgIcons.arrowLeft, color: AppColors.ink),
-                onPressed: () => context.canPop() ? context.pop() : context.go('/akun'),
+                onPressed: () =>
+                    context.canPop() ? context.pop() : context.go('/akun'),
               ),
             ),
             Padding(
@@ -88,7 +89,8 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
                       borderRadius: BorderRadius.circular(18),
                     ),
                     child: const Center(
-                      child: Icon(DkgIcons.shieldCheck, size: 30, color: AppColors.primary),
+                      child: Icon(DkgIcons.shieldCheck,
+                          size: 30, color: AppColors.primary),
                     ),
                   ),
                   const SizedBox(height: 18),
@@ -132,7 +134,13 @@ class _Setup2FAPageState extends State<Setup2FAPage> {
                           width: 1.8,
                         ),
                         boxShadow: on
-                            ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.08), blurRadius: 0, spreadRadius: 4)]
+                            ? [
+                                BoxShadow(
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.08),
+                                    blurRadius: 0,
+                                    spreadRadius: 4)
+                              ]
                             : [],
                       ),
                       child: Row(

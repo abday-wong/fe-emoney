@@ -19,7 +19,8 @@ class TransactionRow extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (divider)
-          const Divider(height: 1, thickness: 1, color: AppColors.line2, indent: 16),
+          const Divider(
+              height: 1, thickness: 1, color: AppColors.line2, indent: 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
@@ -72,11 +73,14 @@ class TransactionRow extends StatelessWidget {
 
   (IconData, String) _resolveIcon(String desc) {
     final d = desc.toLowerCase();
-    if (d.contains('top up') || d.contains('topup')) return (DkgIcons.topup, 'blue');
+    if (d.contains('top up') || d.contains('topup'))
+      return (DkgIcons.topup, 'blue');
     if (d.contains('transfer')) return (DkgIcons.send, 'green');
-    if (d.contains('qris') || d.contains('bayar')) return (DkgIcons.qris, 'violet');
+    if (d.contains('qris') || d.contains('bayar'))
+      return (DkgIcons.qris, 'violet');
     if (d.contains('pulsa')) return (DkgIcons.pulsa, 'blue');
-    if (d.contains('tokobel') || d.contains('toko')) return (DkgIcons.store, 'amber');
+    if (d.contains('tokobel') || d.contains('toko'))
+      return (DkgIcons.store, 'amber');
     return (DkgIcons.wallet, 'slate');
   }
 
@@ -85,14 +89,28 @@ class TransactionRow extends StatelessWidget {
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final date = DateTime(dt.year, dt.month, dt.day);
-    final time = '${dt.hour.toString().padLeft(2, '0')}.${dt.minute.toString().padLeft(2, '0')}';
+    final time =
+        '${dt.hour.toString().padLeft(2, '0')}.${dt.minute.toString().padLeft(2, '0')}';
     if (date == today) return 'Hari ini, $time';
     if (date == yesterday) return 'Kemarin, $time';
     return '${dt.day} ${_month(dt.month)}, $time';
   }
 
   String _month(int m) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agt',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
+    ];
     return months[m - 1];
   }
 }

@@ -18,11 +18,14 @@ class TransactionModel extends TransactionEntity {
       id: (json['ID'] ?? json['id'] as num? ?? 0).toInt(),
       accountId: (json['account_id'] as num? ?? 0).toInt(),
       amount: (json['amount'] as num? ?? 0).toDouble(),
-      type: typeStr == 'credit' ? TransactionType.credit : TransactionType.debit,
+      type:
+          typeStr == 'credit' ? TransactionType.credit : TransactionType.debit,
       description: json['description'] as String? ?? '',
       balanceBefore: (json['balance_before'] as num? ?? 0).toDouble(),
       balanceAfter: (json['balance_after'] as num? ?? 0).toDouble(),
-      createdAt: DateTime.tryParse(json['CreatedAt'] ?? json['created_at'] as String? ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(
+              json['CreatedAt'] ?? json['created_at'] as String? ?? '') ??
+          DateTime.now(),
     );
   }
 }

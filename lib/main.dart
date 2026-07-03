@@ -6,7 +6,8 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_bloc_observer.dart';
 import 'core/network/api_client.dart';
-import 'injection/injection_container.dart' as di; // Wait, actually the original was import 'injection/injection_container.dart' as di; Let's keep it exact.
+import 'injection/injection_container.dart'
+    as di; // Wait, actually the original was import 'injection/injection_container.dart' as di; Let's keep it exact.
 import 'core/utils/deep_link_handler.dart';
 import 'data/datasources/local/secure_storage_datasource.dart';
 import 'injection/injection_container.dart';
@@ -62,7 +63,8 @@ class _DompetKampusAppState extends State<DompetKampusApp> {
           // If already logged in, navigate immediately to merchant checkout
           AppRouter.router.go('/merchant');
         } else {
-          debugPrint('[DeepLink] User is not authenticated. Storing pending transaction.');
+          debugPrint(
+              '[DeepLink] User is not authenticated. Storing pending transaction.');
         }
       },
     );
@@ -84,4 +86,3 @@ class _DompetKampusAppState extends State<DompetKampusApp> {
     );
   }
 }
-

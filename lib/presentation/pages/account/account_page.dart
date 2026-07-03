@@ -36,7 +36,10 @@ class AccountPage extends StatelessWidget {
                       20, MediaQuery.of(context).padding.top + 12, 20, 24),
                   child: Row(
                     children: [
-                      AppAvatar(name: user?.name ?? 'User', size: 60, bg: Colors.white.withValues(alpha: 0.25)),
+                      AppAvatar(
+                          name: user?.name ?? 'User',
+                          size: 60,
+                          bg: Colors.white.withValues(alpha: 0.25)),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Column(
@@ -60,7 +63,8 @@ class AccountPage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.zero,
@@ -68,7 +72,8 @@ class AccountPage extends StatelessWidget {
                         ),
                         child: const Row(
                           children: [
-                            Icon(Icons.verified_user_outlined, size: 14, color: Colors.white),
+                            Icon(Icons.verified_user_outlined,
+                                size: 14, color: Colors.white),
                             SizedBox(width: 5),
                             Text('Terverifikasi',
                                 style: TextStyle(
@@ -123,9 +128,11 @@ class AccountPage extends StatelessWidget {
                                   ? 'Aktif · Google Authenticator'
                                   : 'Aktif · Email OTP',
                               onTap: () => context.go('/setup-2fa'),
-                              right: const AppBadge(label: 'Aktif', tone: 'green'),
+                              right:
+                                  const AppBadge(label: 'Aktif', tone: 'green'),
                             ),
-                            const Divider(height: 1, indent: 56, color: AppColors.line2),
+                            const Divider(
+                                height: 1, indent: 56, color: AppColors.line2),
                             _Row(
                               icon: Icons.lock_outline_rounded,
                               tone: 'blue',
@@ -133,7 +140,8 @@ class AccountPage extends StatelessWidget {
                               subtitle: 'Terakhir diubah 2 bln lalu',
                               onTap: () {},
                             ),
-                            const Divider(height: 1, indent: 56, color: AppColors.line2),
+                            const Divider(
+                                height: 1, indent: 56, color: AppColors.line2),
                             _Row(
                               icon: Icons.fingerprint_rounded,
                               tone: 'violet',
@@ -171,17 +179,32 @@ class AccountPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            _Row(icon: Icons.person_outline_rounded, tone: 'blue', title: 'Data pribadi', onTap: () {}),
-                            const Divider(height: 1, indent: 56, color: AppColors.line2),
-                            _Row(icon: Icons.account_balance_outlined, tone: 'green', title: 'Rekening & kartu tersimpan', onTap: () {}),
-                            const Divider(height: 1, indent: 56, color: AppColors.line2),
-                            _Row(icon: Icons.settings_outlined, tone: 'slate', title: 'Pengaturan aplikasi', onTap: () {}),
+                            _Row(
+                                icon: Icons.person_outline_rounded,
+                                tone: 'blue',
+                                title: 'Data pribadi',
+                                onTap: () {}),
+                            const Divider(
+                                height: 1, indent: 56, color: AppColors.line2),
+                            _Row(
+                                icon: Icons.account_balance_outlined,
+                                tone: 'green',
+                                title: 'Rekening & kartu tersimpan',
+                                onTap: () {}),
+                            const Divider(
+                                height: 1, indent: 56, color: AppColors.line2),
+                            _Row(
+                                icon: Icons.settings_outlined,
+                                tone: 'slate',
+                                title: 'Pengaturan aplikasi',
+                                onTap: () {}),
                           ],
                         ),
                       ),
                       const SizedBox(height: 18),
                       GestureDetector(
-                        onTap: () => context.read<AuthBloc>().add(AuthLogoutRequested()),
+                        onTap: () =>
+                            context.read<AuthBloc>().add(AuthLogoutRequested()),
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 15),
@@ -200,7 +223,8 @@ class AccountPage extends StatelessWidget {
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.logout_rounded, size: 20, color: AppColors.red),
+                              Icon(Icons.logout_rounded,
+                                  size: 20, color: AppColors.red),
                               SizedBox(width: 9),
                               Text('Keluar',
                                   style: TextStyle(
@@ -286,7 +310,9 @@ class _Row extends StatelessWidget {
                 ],
               ),
             ),
-            right ?? const Icon(Icons.chevron_right_rounded, size: 18, color: AppColors.slate400),
+            right ??
+                const Icon(Icons.chevron_right_rounded,
+                    size: 18, color: AppColors.slate400),
           ],
         ),
       ),
@@ -323,7 +349,10 @@ class _ToggleState extends State<_Toggle> {
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
-              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 3, offset: Offset(0, 1))],
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black12, blurRadius: 3, offset: Offset(0, 1))
+              ],
             ),
           ),
         ),

@@ -8,7 +8,20 @@ class NumPad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '000', '0', 'del'];
+    final keys = [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '000',
+      '0',
+      'del'
+    ];
     return GridView.count(
       crossAxisCount: 3,
       shrinkWrap: true,
@@ -17,7 +30,8 @@ class NumPad extends StatelessWidget {
       children: keys.map((k) {
         Widget child;
         if (k == 'del') {
-          child = const Icon(Icons.arrow_back_ios_rounded, size: 22, color: AppColors.slate600);
+          child = const Icon(Icons.arrow_back_ios_rounded,
+              size: 22, color: AppColors.slate600);
         } else {
           child = Text(
             k,

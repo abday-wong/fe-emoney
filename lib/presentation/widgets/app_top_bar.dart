@@ -19,7 +19,8 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       leading: onBack != null
           ? IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: AppColors.ink),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                  size: 20, color: AppColors.ink),
               onPressed: onBack,
             )
           : null,

@@ -55,7 +55,8 @@ class ApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> post(String path, {Map<String, dynamic>? data}) async {
+  Future<Map<String, dynamic>> post(String path,
+      {Map<String, dynamic>? data}) async {
     try {
       final response = await _dio.post(path, data: data);
       return _handleResponse(response);
@@ -64,7 +65,8 @@ class ApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> put(String path, {Map<String, dynamic>? data}) async {
+  Future<Map<String, dynamic>> put(String path,
+      {Map<String, dynamic>? data}) async {
     try {
       final response = await _dio.put(path, data: data);
       return _handleResponse(response);
@@ -93,7 +95,8 @@ class ApiClient {
           amount: (d?['amount'] as num?)?.toDouble(),
         );
       }
-      throw ServerException(message, errorCode: errorCode, statusCode: response.statusCode);
+      throw ServerException(message,
+          errorCode: errorCode, statusCode: response.statusCode);
     }
     return data;
   }
@@ -124,9 +127,11 @@ class ApiClient {
           }
           return UnauthorizedException(message, errorCode: errorCode);
         }
-        return ServerException(message, errorCode: errorCode, statusCode: status);
+        return ServerException(message,
+            errorCode: errorCode, statusCode: status);
       } catch (_) {
-        return ServerException('Terjadi kesalahan server.', statusCode: e.response?.statusCode);
+        return ServerException('Terjadi kesalahan server.',
+            statusCode: e.response?.statusCode);
       }
     }
     return ServerException('Terjadi kesalahan jaringan.');

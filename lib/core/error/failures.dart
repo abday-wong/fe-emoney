@@ -29,7 +29,8 @@ class AuthFailure extends Failure {
 }
 
 class InvalidOtpFailure extends Failure {
-  const InvalidOtpFailure([super.message = 'Kode OTP tidak valid atau sudah kadaluarsa.']);
+  const InvalidOtpFailure(
+      [super.message = 'Kode OTP tidak valid atau sudah kadaluarsa.']);
 }
 
 class InsufficientBalanceFailure extends Failure {
@@ -50,5 +51,6 @@ class CacheFailure extends Failure {
 }
 
 class UnexpectedFailure extends Failure {
-  const UnexpectedFailure([super.message = 'Terjadi kesalahan. Silakan coba lagi.']);
+  const UnexpectedFailure(
+      [super.message = 'Terjadi kesalahan. Silakan coba lagi.']);
 }

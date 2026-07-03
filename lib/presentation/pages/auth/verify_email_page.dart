@@ -68,15 +68,27 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       final isInvalidOtp = e.errorCode == 'INVALID_OTP';
       setState(() {
         _hasError = true;
-        _errorMessage = isInvalidOtp ? 'Kode salah atau sudah kadaluarsa' : e.message;
+        _errorMessage =
+            isInvalidOtp ? 'Kode salah atau sudah kadaluarsa' : e.message;
       });
       Future.delayed(const Duration(milliseconds: 650), () {
-        if (mounted) setState(() { _code = ''; _hasError = false; });
+        if (mounted)
+          setState(() {
+            _code = '';
+            _hasError = false;
+          });
       });
     } catch (_) {
-      setState(() { _hasError = true; _errorMessage = 'Terjadi kesalahan, coba lagi'; });
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Terjadi kesalahan, coba lagi';
+      });
       Future.delayed(const Duration(milliseconds: 650), () {
-        if (mounted) setState(() { _code = ''; _hasError = false; });
+        if (mounted)
+          setState(() {
+            _code = '';
+            _hasError = false;
+          });
       });
     } finally {
       if (mounted) setState(() => _loading = false);
@@ -98,7 +110,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Gagal kirim ulang, coba lagi'), backgroundColor: AppColors.red),
+          const SnackBar(
+              content: Text('Gagal kirim ulang, coba lagi'),
+              backgroundColor: AppColors.red),
         );
       }
     }
@@ -136,7 +150,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: const Center(
-                            child: Icon(DkgIcons.mail, size: 36, color: AppColors.primary),
+                            child: Icon(DkgIcons.mail,
+                                size: 36, color: AppColors.primary),
                           ),
                         ),
                         Positioned(
@@ -150,7 +165,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 3),
                             ),
-                            child: const Icon(DkgIcons.check, size: 13, color: Colors.white),
+                            child: const Icon(DkgIcons.check,
+                                size: 13, color: Colors.white),
                           ),
                         ),
                       ],
@@ -192,7 +208,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 100),
                       transform: _hasError
-                          ? (Matrix4.identity()..translateByDouble(10.0, 0, 0, 1.0))
+                          ? (Matrix4.identity()
+                            ..translateByDouble(10.0, 0, 0, 1.0))
                           : Matrix4.identity(),
                       child: CodeInput(
                         value: _code,
@@ -234,7 +251,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                           )
                         : TextButton.icon(
                             onPressed: _resend,
-                            icon: const Icon(DkgIcons.refresh, size: 16, color: AppColors.primary),
+                            icon: const Icon(DkgIcons.refresh,
+                                size: 16, color: AppColors.primary),
                             label: const Text(
                               'Kirim ulang kode',
                               style: TextStyle(

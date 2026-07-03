@@ -29,17 +29,18 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _authenticateBiometrics() async {
     if (_isAuthenticating) return;
-    
+
     try {
       final bool canCheck = await _localAuth.canCheckBiometrics;
       final bool isSupported = await _localAuth.isDeviceSupported();
-      
+
       if (!canCheck && !isSupported) {
         _proceedToApp();
         return;
       }
-      
-      final List<BiometricType> availableBiometrics = await _localAuth.getAvailableBiometrics();
+
+      final List<BiometricType> availableBiometrics =
+          await _localAuth.getAvailableBiometrics();
       if (availableBiometrics.isEmpty) {
         _proceedToApp();
         return;
@@ -51,7 +52,8 @@ class _SplashPageState extends State<SplashPage> {
       });
 
       final bool didAuthenticate = await _localAuth.authenticate(
-        localizedReason: 'Pindai sidik jari atau wajah Anda untuk membuka Doran Pay',
+        localizedReason:
+            'Pindai sidik jari atau wajah Anda untuk membuka Doran Pay',
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: true,

@@ -59,21 +59,24 @@ class AppRouter {
             path: '/2fa/smtp',
             builder: (_, state) {
               final extra = state.extra as Map<String, dynamic>?;
-              return _withOtp(TwoFASmtpPage(mode: extra?['mode'] as String? ?? 'login'));
+              return _withOtp(
+                  TwoFASmtpPage(mode: extra?['mode'] as String? ?? 'login'));
             },
           ),
           GoRoute(
             path: '/2fa/totp',
             builder: (_, state) {
               final extra = state.extra as Map<String, dynamic>?;
-              return _withOtp(TwoFATotpPage(mode: extra?['mode'] as String? ?? 'login'));
+              return _withOtp(
+                  TwoFATotpPage(mode: extra?['mode'] as String? ?? 'login'));
             },
           ),
           GoRoute(
             path: '/2fa/notif',
             builder: (_, state) {
               final extra = state.extra as Map<String, dynamic>?;
-              return _withOtp(TwoFANotifPage(mode: extra?['mode'] as String? ?? 'login'));
+              return _withOtp(
+                  TwoFANotifPage(mode: extra?['mode'] as String? ?? 'login'));
             },
           ),
           // Main app with tabs
@@ -94,10 +97,17 @@ class AppRouter {
                   active: tab,
                   onTab: (t) {
                     switch (t) {
-                      case 'history': context.go('/history'); break;
-                      case 'promo': context.go('/promo'); break;
-                      case 'akun': context.go('/akun'); break;
-                      default: context.go('/home');
+                      case 'history':
+                        context.go('/history');
+                        break;
+                      case 'promo':
+                        context.go('/promo');
+                        break;
+                      case 'akun':
+                        context.go('/akun');
+                        break;
+                      default:
+                        context.go('/home');
                     }
                   },
                   onScan: () => context.go('/payment'),
@@ -106,13 +116,16 @@ class AppRouter {
             },
             routes: [
               GoRoute(path: '/home', builder: (_, __) => const HomePage()),
-              GoRoute(path: '/history', builder: (_, __) => const HistoryPage()),
+              GoRoute(
+                  path: '/history', builder: (_, __) => const HistoryPage()),
               GoRoute(path: '/promo', builder: (_, __) => const PromoPage()),
               GoRoute(path: '/akun', builder: (_, __) => const AccountPage()),
             ],
           ),
           // Payment flows (no tab bar)
-          GoRoute(path: '/topup', builder: (_, __) => _withPayment(const TopUpPage())),
+          GoRoute(
+              path: '/topup',
+              builder: (_, __) => _withPayment(const TopUpPage())),
           GoRoute(path: '/transfer', builder: (_, __) => const TransferPage()),
           GoRoute(
             path: '/transfer/amount',
@@ -154,8 +167,11 @@ class AppRouter {
                 subtitle: extra['subtitle'] as String? ?? '',
                 amount: (extra['amount'] as num? ?? 0).toDouble(),
                 lines: (extra['lines'] as List<dynamic>?)
-                    ?.map((l) => (l as List<dynamic>).map((e) => e.toString()).toList())
-                    .toList() ?? [],
+                        ?.map((l) => (l as List<dynamic>)
+                            .map((e) => e.toString())
+                            .toList())
+                        .toList() ??
+                    [],
               ));
             },
           ),
