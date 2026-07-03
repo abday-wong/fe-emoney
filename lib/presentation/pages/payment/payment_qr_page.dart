@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/currency_formatter.dart';
@@ -73,6 +74,41 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
           });
           _controller.stop();
         }
+      }
+    }
+  }
+
+  Future<void> _importFromGallery() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      debugPrint('[QR] Picked image path: ${image.path}');
+      final BarcodeCapture? capture = await _controller.analyzeImage(image.path);
+      
+      if (capture != null && capture.barcodes.isNotEmpty) {
+        debugPrint('[QR] Image analysis success: detected ${capture.barcodes.length} codes');
+        _onDetect(capture);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Tidak ada kode QR yang terdeteksi di gambar ini.'),
+              backgroundColor: AppColors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('[QR] Error importing from gallery: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal membaca gambar dari galeri: $e'),
+            backgroundColor: AppColors.red,
+          ),
+        );
       }
     }
   }
@@ -196,33 +232,40 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
           const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: ['Bayar', 'QR Saya'].map((label) {
+            children: ['Bayar', 'QR Saya', 'Galeri'].map((label) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(14),
+                child: GestureDetector(
+                  onTap: label == 'Galeri' ? _importFromGallery : null,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          label == 'Bayar'
+                              ? Icons.qr_code_rounded
+                              : label == 'QR Saya'
+                                  ? Icons.qr_code_2_rounded
+                                  : Icons.photo_library_rounded,
+                          size: 22,
+                          color: Colors.white,
+                        ),
                       ),
-                      child: Icon(
-                        label == 'Bayar' ? Icons.qr_code_rounded : Icons.qr_code_2_rounded,
-                        size: 22,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 7),
-                    Text(label,
-                        style: const TextStyle(
-                          fontFamily: 'PlusJakartaSans',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white70,
-                        )),
-                  ],
+                      const SizedBox(height: 7),
+                      Text(label,
+                          style: const TextStyle(
+                            fontFamily: 'PlusJakartaSans',
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white70,
+                          )),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
