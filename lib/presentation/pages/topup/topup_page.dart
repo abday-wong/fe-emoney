@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
@@ -100,6 +101,7 @@ class _TopUpPageState extends State<TopUpPage> {
                             child: TextField(
                               controller: _amountController,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                               style: const TextStyle(
                                 fontFamily: 'PlusJakartaSans',
                                 fontSize: 20,
@@ -112,8 +114,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                 hintStyle: TextStyle(color: AppColors.slate400),
                               ),
                               onChanged: (val) {
-                                final cleanVal = val.replaceAll(RegExp(r'[^0-9]'), '');
-                                final parsed = double.tryParse(cleanVal) ?? 0;
+                                final parsed = double.tryParse(val) ?? 0;
                                 setState(() {
                                   _amount = parsed;
                                 });
