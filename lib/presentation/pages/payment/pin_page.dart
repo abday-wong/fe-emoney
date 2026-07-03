@@ -61,6 +61,7 @@ class _PinPageState extends State<PinPage> {
       listener: (context, state) {
         if (state is PaymentTransferSuccess) {
           final result = state.result;
+          context.read<AccountBloc>().add(AccountLoadRequested());
           context.go('/success', extra: {
             'title': 'Transfer berhasil',
             'subtitle': result.description,
@@ -72,6 +73,7 @@ class _PinPageState extends State<PinPage> {
             ],
           });
         } else if (state is PaymentTopupSuccess) {
+          context.read<AccountBloc>().add(AccountLoadRequested());
           context.go('/success', extra: {
             'title': 'Top up berhasil',
             'subtitle': 'Saldo kamu bertambah',

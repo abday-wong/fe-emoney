@@ -174,6 +174,7 @@ class _MerchantCheckoutPageState extends State<MerchantCheckoutPage> {
               setState(() => _isProcessing = true);
             } else if (state is PaymentTransferSuccess) {
               setState(() => _isProcessing = false);
+              context.read<AccountBloc>().add(AccountLoadRequested());
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Pembayaran Berhasil!'), backgroundColor: AppColors.green),
               );
