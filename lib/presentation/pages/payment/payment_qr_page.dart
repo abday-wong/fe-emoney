@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/currency_formatter.dart';
+import '../../../core/utils/deep_link_handler.dart';
 import '../../widgets/app_badge.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/feature_icon.dart';
@@ -28,9 +29,51 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
   }
 
   void _onDetect(BarcodeCapture capture) {
-    if (!_detected) {
-      setState(() => _detected = true);
-      _controller.stop();
+    if (_detected) return;
+
+    final barcodes = capture.barcodes;
+    if (barcodes.isNotEmpty) {
+      final codeValue = barcodes.first.rawValue;
+      if (codeValue != null) {
+        debugPrint('[QR] Scanned Code: $codeValue');
+        if (codeValue.startsWith('emoney://pay')) {
+          setState(() {
+            _detected = true;
+          });
+          _controller.stop();
+          
+          try {
+            final uri = Uri.parse(codeValue);
+            final amountStr = uri.queryParameters['amount'];
+            final recipient = uri.queryParameters['recipient'];
+            final trxId = uri.queryParameters['trx_id'];
+            final callbackUrl = uri.queryParameters['callback'];
+            
+            if (amountStr != null && recipient != null && trxId != null && callbackUrl != null) {
+              final amount = double.tryParse(amountStr) ?? 0.0;
+              DeepLinkHandler.pendingTrx = PendingTrx(
+                amount: amount,
+                recipient: recipient,
+                trxId: trxId,
+                callback: callbackUrl,
+              );
+              
+              if (mounted) {
+                context.go('/merchant');
+              }
+              return;
+            }
+          } catch (e) {
+            debugPrint('[QR] Error parsing QRIS payload: $e');
+          }
+        } else {
+          // Fallback ke mock sheet untuk QR code umum
+          setState(() {
+            _detected = true;
+          });
+          _controller.stop();
+        }
+      }
     }
   }
 
