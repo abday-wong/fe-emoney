@@ -17,6 +17,7 @@ class TopUpPage extends StatefulWidget {
 class _TopUpPageState extends State<TopUpPage> {
   double _amount = 100000;
   String _method = 'bca';
+  late final TextEditingController _amountController;
 
   final _chips = [50000.0, 100000.0, 200000.0, 500000.0, 1000000.0, 2000000.0, 5000000.0, 10000000.0];
   final _methods = [
@@ -24,6 +25,18 @@ class _TopUpPageState extends State<TopUpPage> {
     {'id': 'card', 'name': 'Kartu Debit/Kredit', 'tone': 'violet', 'icon': Icons.credit_card_outlined},
     {'id': 'alfa', 'name': 'Alfamart / Indomaret', 'tone': 'red', 'icon': Icons.storefront_outlined},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _amountController = TextEditingController(text: _amount.toInt().toString());
+  }
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +71,62 @@ class _TopUpPageState extends State<TopUpPage> {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(left: 4, bottom: 10),
-                      child: Text('Nominal top up',
+                      child: Text('Masukkan nominal custom',
+                          style: TextStyle(
+                            fontFamily: 'PlusJakartaSans',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.slate400,
+                          )),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        border: Border.all(color: AppColors.line, width: 2),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Rp ',
+                            style: TextStyle(
+                              fontFamily: 'PlusJakartaSans',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          Expanded(
+                            child: TextField(
+                              controller: _amountController,
+                              keyboardType: TextInputType.number,
+                              style: const TextStyle(
+                                fontFamily: 'PlusJakartaSans',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '0',
+                                hintStyle: TextStyle(color: AppColors.slate400),
+                              ),
+                              onChanged: (val) {
+                                final cleanVal = val.replaceAll(RegExp(r'[^0-9]'), '');
+                                final parsed = double.tryParse(cleanVal) ?? 0;
+                                setState(() {
+                                  _amount = parsed;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 4, bottom: 10),
+                      child: Text('Atau pilih nominal cepat',
                           style: TextStyle(
                             fontFamily: 'PlusJakartaSans',
                             fontSize: 13,
@@ -76,7 +144,10 @@ class _TopUpPageState extends State<TopUpPage> {
                       children: _chips.map((c) {
                         final selected = _amount == c;
                         return GestureDetector(
-                          onTap: () => setState(() => _amount = c),
+                          onTap: () => setState(() {
+                            _amount = c;
+                            _amountController.text = c.toInt().toString();
+                          }),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 150),
                             decoration: BoxDecoration(
@@ -146,7 +217,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                               fontFamily: 'PlusJakartaSans',
                                               fontSize: 14.5,
                                               fontWeight: FontWeight.w700,
-                                              color: AppColors.ink,
+                                              color: AppColors.slate600,
                                             )),
                                       ),
                                       AnimatedContainer(
@@ -194,9 +265,11 @@ class _TopUpPageState extends State<TopUpPage> {
                 builder: (context, state) => AppButton(
                   label: 'Top Up ${CurrencyFormatter.format(_amount)}',
                   isLoading: state is PaymentLoading,
-                  onPressed: () {
-                    context.read<PaymentBloc>().add(PaymentTopupRequested(_amount));
-                  },
+                  onPressed: _amount > 0
+                      ? () {
+                          context.read<PaymentBloc>().add(PaymentTopupRequested(_amount));
+                        }
+                      : null,
                 ),
               ),
             ),
