@@ -367,8 +367,9 @@ class _RegisterPageState extends State<RegisterPage> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _GoogleIcon extends StatelessWidget {
